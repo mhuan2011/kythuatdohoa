@@ -42,6 +42,40 @@ void lineDDA(int x1, int y1, int x2, int y2, int l){       // thuat toan DDA
          
     }
 }
+
+// hien
+void Mid_line(int x1, int y1, int x2, int y2, int c){ 
+        int x, y, dx, dy,d; 
+        y = y1; 
+       dx = x2 - x1; 
+       dy = y2 - y1; 
+       d= dy - dx/2; 
+       if(x1==x2){
+       	while(y1<=y2){
+       		putpixel(x1, y1++, c);
+		   }
+	   }else{
+       for (x=x1; x<=x2; x++){ 
+           putpixel(x, y, c); 
+           if (d <= 0) 
+                d = d + dy; 
+          else { 
+                y ++; 
+               d = d + dy - dx; 
+          }} 
+      }
+}
+
+void veHCN(int xa, int ya, int xc, int yc, int color){
+	int xb = xc;
+	int yb = ya;
+	while(ya <= yc){
+		Mid_line(xa, ya, xb, yb, color);
+		ya++;
+		yb++;
+		}
+	}
+	
 int main(){
 	int Ax, Ay, Bx, By;
     int length;
