@@ -111,29 +111,71 @@ void Mid_line2(int x1, int y1, int x2, int y2, int c){ //---- - - ----
     	}
 	}
 }
-int main(){
-	int Ax, Ay, Bx, By;
-    int length;
-    cout << "---Toa do diem dau--- \n";
-    cout <<"Ax = ";
-    cin >> Ax;
-    cout <<"Ay = ";
-    cin >> Ay;
-    cout << "---Toa do diem cuoi--- \n";
-    cout <<"Bx = ";
-    cin >> Bx;
-    cout <<"By = ";
-    cin >> By;
-    cout << "Do dai dut gach:"; cin >> length;
-    int gd,gm;
-    gd=DETECT;
-    initgraph(&gd,&gm,NULL);        
-    setcolor(255);
-    settextstyle(10,0,2);
-    outtextxy(100,10,"duong thang dut gach");
-    
-    lineDDA(Ax,Ay,Bx,By, length);      
 
-    getch();
+void menu(){
+	int chon = 0;
+	while(true){
+		cout << "1.Ve duong dut gach\n";
+		cout << "2.Ve hcn va to mau\n";
+		cout << "0.Thoat";
+		cout << "Vui long chon so?";
+		cin >> chon;
+		switch(chon){
+			case 1:{
+				int Ax, Ay, Bx, By;
+			    int length;
+			    cout << "---Toa do diem dau--- \n";
+			    cout <<"xA = ";
+			    cin >> Ax;
+			    cout <<"yA = ";
+			    cin >> Ay;
+			    cout << "---Toa do diem cuoi--- \n";
+			    cout <<"xB = ";
+			    cin >> Bx;
+			    cout <<"yB = ";
+			    cin >> By;
+			    cout << "Do dai dut gach:"; cin >> length;
+			    int gd,gm;
+			    gd=DETECT;
+			    initgraph(&gd,&gm,NULL);        
+			    setcolor(255);
+			    settextstyle(10,0,2);
+			    outtextxy(100,10,"duong thang dut gach");
+			    lineDDA(Ax,Ay,Bx,By, length);      
+				
+			    getch();
+				break;
+			}
+			case 2:{
+				int xa, ya, d, r;
+				cout << "Nhap toa do diem A cua hinh chu nhat\nxA =";
+				cin >> xa;
+				cout << "yA = ";
+				cin >> ya;
+				cout << "Chieu dai = ";
+				cin >> d;
+				cout << "Chieu rong = ";
+				cin >> r;
+				int xc = xa + d;
+				int yc = ya + r;
+				int gd,gm;
+				gd=DETECT;
+			    initgraph(&gd,&gm,NULL);        
+			    setcolor(255);
+			    settextstyle(10,0,2);
+			    outtextxy(100,10,"Hinh chu nhat");
+				veHCN(xa, ya, xc, yc, color);
+				getch();
+				break;
+			}
+		}
+	}
+	
+	
+	
+	}
+	
+int main(){
+	menu();
     return 0;
 }
