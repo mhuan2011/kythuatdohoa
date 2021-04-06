@@ -7,7 +7,9 @@
 #include <conio.h>
 using namespace std ;
 int color = WHITE;
-   
+
+
+//huan duong dut gach
 void lineDDA(int x1, int y1, int x2, int y2, int l){       // thuat toan DDA
     int  Dx = x2 - x1, Dy = y2 - y1;  
     float x_inc , y_inc;
