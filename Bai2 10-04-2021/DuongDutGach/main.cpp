@@ -114,13 +114,55 @@ void Mid_line2(int x1, int y1, int x2, int y2, int c){ //---- - - ----
 	}
 }
 
+//vinh: ve~ mui ten
+void lineDDA1(int x1, int y1, int x2, int y2){ // ve duong thang~ binh` thuong`
+    int  Dx = x2 - x1, Dy = y2 - y1;  
+    float x_inc , y_inc;
+    float step=max(abs(Dx),abs(Dy));
+    x_inc=Dx/step;
+    y_inc=Dy/step;
+    float x=x1, y=y1;
+    putpixel(x, y, color);
+      
+    int k=1;
+    while(k <=step){
+        k++;
+        x += x_inc;
+        y += y_inc;
+        putpixel(Round(x),Round(y),color);
+         
+    }
+}
+
+void hinhMuiTen(){
+	int x, y, canh = 20;
+	cout << "Nhap x: "; cin >> x;
+	cout << "Nhap y: "; cin >> y;
+	int gd,gm;
+	gd=DETECT;
+	initgraph(&gd,&gm,NULL);  
+	 
+	//ve tam giac deu
+	lineDDA1(x, y, x, (y+canh));
+	lineDDA1(x, y+canh, x + ((canh*sqrt(3))/2), y + canh/2);
+	lineDDA1(x + ((canh*sqrt(3))/2), y+canh/2, x, y);
+	
+	
+	
+	//ve duong thang
+	lineDDA1(x , y + canh/2, x-100, y+canh/2);
+	lineDDA1(x , y + canh/2 + 1, x-100, y+canh/2 + 1);
+	lineDDA1(x , y + canh/2 - 1, x-100, y+canh/2 - 1);
+}
+
 void menu(){
 	int chon = 0;
 	while(true){
-		cout << "1.Ve duong dut gach\n";
-		cout << "2.Ve hcn va to mau\n";
-		cout << "0.Thoat";
-		cout << "Vui long chon so?";
+		cout << "1. Ve duong dut gach\n";
+		cout << "2. Ve hcn va to mau\n";
+		cout << "3. Ve mui ten\n";
+		cout << "0. Thoat\n";
+		cout << "Vui long chon so? ";
 		cin >> chon;
 		switch(chon){
 			case 1:{
@@ -168,6 +210,15 @@ void menu(){
 			    outtextxy(100,10,"Hinh chu nhat");
 				veHCN(xa, ya, xc, yc, color);
 				getch();
+				break;
+			}
+			case 3:{
+				hinhMuiTen();
+			    getch();
+				break;
+			}
+			case 0:{
+				return;
 				break;
 			}
 		}
