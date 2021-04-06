@@ -43,7 +43,7 @@ void lineDDA(int x1, int y1, int x2, int y2, int l){       // thuat toan DDA
     }
 }
 
-// hien
+// hien hcn co to mau
 void Mid_line(int x1, int y1, int x2, int y2, int c){ 
         int x, y, dx, dy,d; 
         y = y1; 
@@ -76,6 +76,41 @@ void veHCN(int xa, int ya, int xc, int yc, int color){
 		}
 	}
 	
+	// long gach cham cham gach
+	
+void Mid_line2(int x1, int y1, int x2, int y2, int c){ //---- - - ----
+        int x, y, dx, dy,d; 
+        y = y1; 
+       dx = x2 - x1; 
+       dy = y2 - y1; 
+       d= dy - dx/2; 
+       int count = 0;
+	   if(x1==x2){
+       	while(y1<=y2){
+			if((count != 4)&&(count != 6)&&(count != 8))
+				putpixel(x1, y1++, c);
+			count = count + 1 ;
+			if(count == 9){
+				count = 0;
+			}
+		   }
+	   }else{
+       for (x=x1; x<=x2; x++){ 
+           if((count != 4)&&(count != 6)&&(count != 8))
+				putpixel(x, y, c);
+           if (d <= 0) 
+                d = d + dy; 
+          else { 
+                y ++; 
+               d = d + dy - dx; 
+          }
+          count ++ ;
+			if(count == 9){
+				count = 0;
+		  } 
+    	}
+	}
+}
 int main(){
 	int Ax, Ay, Bx, By;
     int length;
