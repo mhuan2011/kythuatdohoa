@@ -114,6 +114,7 @@ void Mid_line2(int x1, int y1, int x2, int y2, int c){ //---- - - ----
 	}
 }
 
+<<<<<<< HEAD
 //vinh: ve~ mui ten
 void lineDDA1(int x1, int y1, int x2, int y2){ // ve duong thang~ binh` thuong`
     int  Dx = x2 - x1, Dy = y2 - y1;  
@@ -163,6 +164,16 @@ void menu(){
 		cout << "3. Ve mui ten\n";
 		cout << "0. Thoat\n";
 		cout << "Vui long chon so? ";
+=======
+
+void menu(){
+	int chon = -1;
+	while(chon!=0){
+		cout << "1.Ve duong dut gach\n";
+		cout << "2.Ve hcn va to mau\n";
+		cout << "0.Thoat\n";
+		cout << "Vui long chon so?";
+>>>>>>> bf5eddcafa964162bc1539810528532ac7ed0447
 		cin >> chon;
 		switch(chon){
 			case 1:{
@@ -186,13 +197,13 @@ void menu(){
 			    settextstyle(10,0,2);
 			    outtextxy(100,10,"duong thang dut gach");
 			    lineDDA(Ax,Ay,Bx,By, length);      
-				
 			    getch();
+			    closegraph();
 				break;
 			}
 			case 2:{
 				int xa, ya, d, r;
-				cout << "Nhap toa do diem A cua hinh chu nhat\nxA =";
+				cout << "Nhap toa do diem A cua hinh chu nhat\nxA = ";
 				cin >> xa;
 				cout << "yA = ";
 				cin >> ya;
@@ -210,6 +221,7 @@ void menu(){
 			    outtextxy(100,10,"Hinh chu nhat");
 				veHCN(xa, ya, xc, yc, color);
 				getch();
+				closegraph();
 				break;
 			}
 			case 3:{
