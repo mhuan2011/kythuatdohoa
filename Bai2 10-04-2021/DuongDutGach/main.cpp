@@ -80,7 +80,7 @@ void veHCN(int xa, int ya, int xc, int yc, int color){
 	
 	// long gach cham cham gach
 	
-void Mid_line2(int x1, int y1, int x2, int y2, int c){ //---- - - ----
+void HaiChamGach(int x1, int y1, int x2, int y2, int c){ //---- - - ----
         int x, y, dx, dy,d; 
         y = y1; 
        dx = x2 - x1; 
@@ -114,7 +114,41 @@ void Mid_line2(int x1, int y1, int x2, int y2, int c){ //---- - - ----
 	}
 }
 
-<<<<<<< HEAD
+void MotChamGach(int x1, int y1, int x2, int y2, int c){ //---- - - ----
+        int x, y, dx, dy,d; 
+        y = y1; 
+       dx = x2 - x1; 
+       dy = y2 - y1; 
+       d= dy - dx/2; 
+       int count = 0;
+	   if(x1==x2){
+       	while(y1<=y2){
+			if((count != 4)&&(count != 6))
+				putpixel(x1, y1++, c);
+			count = count + 1 ;
+			if(count == 7){
+				count = 0;
+			}
+		   }
+	   }else{
+       for (x=x1; x<=x2; x++){ 
+           if((count != 4)&&(count != 6))
+				putpixel(x, y, c);
+           if (d <= 0) 
+                d = d + dy; 
+          else { 
+                y ++; 
+               d = d + dy - dx; 
+          }
+          count ++ ;
+			if(count == 7){
+				count = 0;
+		  } 
+    	}
+	}
+}
+
+
 //vinh: ve~ mui ten
 void lineDDA1(int x1, int y1, int x2, int y2){ // ve duong thang~ binh` thuong`
     int  Dx = x2 - x1, Dy = y2 - y1;  
@@ -156,24 +190,18 @@ void hinhMuiTen(){
 	lineDDA1(x , y + canh/2 - 1, x-100, y+canh/2 - 1);
 }
 
-void menu(){
-	int chon = 0;
-	while(true){
-		cout << "1. Ve duong dut gach\n";
-		cout << "2. Ve hcn va to mau\n";
-		cout << "3. Ve mui ten\n";
-		cout << "0. Thoat\n";
-		cout << "Vui long chon so? ";
-=======
 
 void menu(){
 	int chon = -1;
 	while(chon!=0){
 		cout << "1.Ve duong dut gach\n";
 		cout << "2.Ve hcn va to mau\n";
+		cout << "3. Ve mui ten\n";
+		cout << "4. Ve duong 2 cham gach\n";
+		cout << "5. Ve duong cham gach\n";
 		cout << "0.Thoat\n";
-		cout << "Vui long chon so?";
->>>>>>> bf5eddcafa964162bc1539810528532ac7ed0447
+		cout << "Vui long chon so? ";
+
 		cin >> chon;
 		switch(chon){
 			case 1:{
@@ -227,6 +255,57 @@ void menu(){
 			case 3:{
 				hinhMuiTen();
 			    getch();
+				break;
+			}
+			case 4:{
+				int Ax, Ay, Bx, By;
+			    int length;
+			    cout << "---Toa do diem dau--- \n";
+			    cout <<"xA = ";
+			    cin >> Ax;
+			    cout <<"yA = ";
+			    cin >> Ay;
+			    cout << "---Toa do diem cuoi--- \n";
+			    cout <<"xB = ";
+			    cin >> Bx;
+			    cout <<"yB = ";
+			    cin >> By;
+		
+			    int gd,gm;
+			    gd=DETECT;
+			    initgraph(&gd,&gm,NULL);        
+			    setcolor(255);
+			    settextstyle(10,0,2);
+			    outtextxy(100,10,"duong thang 2 cham gach");
+			    HaiChamGach(Ax,Ay,Bx,By, color);      
+			    getch();
+			    closegraph();
+				break;
+				break;
+			}
+			case 5:{
+				int Ax, Ay, Bx, By;
+			    int length;
+			    cout << "---Toa do diem dau--- \n";
+			    cout <<"xA = ";
+			    cin >> Ax;
+			    cout <<"yA = ";
+			    cin >> Ay;
+			    cout << "---Toa do diem cuoi--- \n";
+			    cout <<"xB = ";
+			    cin >> Bx;
+			    cout <<"yB = ";
+			    cin >> By;
+		
+			    int gd,gm;
+			    gd=DETECT;
+			    initgraph(&gd,&gm,NULL);        
+			    setcolor(255);
+			    settextstyle(10,0,2);
+			    outtextxy(100,10,"duong thang 1 cham gach");
+			    MotChamGach(Ax,Ay,Bx,By, color);      
+			    getch();
+			    closegraph();
 				break;
 			}
 			case 0:{
