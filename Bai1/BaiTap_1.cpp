@@ -106,7 +106,12 @@ int main(){
 			if(y>300){
 				y1=-(y-300)/5;
 			}
-			
+			if(x==300){
+				x1=0;	
+			}
+			if(y==300){
+				y1=0;
+			}	
 	        printf("\nleft click : (%d,%d)n", x1, y1);
 	        circle(x,y,2);
         	lineDDA(x,y,300,y,4);
