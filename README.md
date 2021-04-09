@@ -1,4 +1,4 @@
-# kythuatdohoa
+# kythuatdohoa - Nhóm 17
 Bài tập môn kỹ thuật đồ họa
 Thời hạn nộp bài tập
 1. Bài tập 1 và 2: 10/04/2021
