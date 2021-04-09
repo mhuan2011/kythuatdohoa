@@ -85,13 +85,13 @@ void HaiChamGach(int x1, int y1, int x2, int y2, int c){ //---- - - ----
        d= dy - dx/2; 
        int count = 0;
 	   if(x1==x2){
-       	while(y1<=y2){
-			if((count != 4)&&(count != 6)&&(count != 8))
-				putpixel(x1, y1++, c);
-			count = count + 1 ;
-			if(count == 9){
-				count = 0;
-			}
+    		while(y1<=y2){
+				if((count != 4)&&(count != 6)&&(count != 8))
+					putpixel(x1, y1++, c);
+				count = count + 1 ;
+				if(count == 9){
+					count = 0;
+				}
 		   }
 	   }else{
        for (x=x1; x<=x2; x++){ 
