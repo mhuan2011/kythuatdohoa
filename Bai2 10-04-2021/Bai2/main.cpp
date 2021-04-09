@@ -7,6 +7,7 @@
 #include <conio.h>
 using namespace std ;
 int color = WHITE;
+int background = 0;
 
 
 //huan duong dut gach
@@ -43,7 +44,8 @@ void lineDDA(int x1, int y1, int x2, int y2, int l){       // thuat toan DDA
 }
 
 // hien hcn co to mau
-void Mid_line(int x1, int y1, int x2, int y2, int c){ 
+void Mid_line(int x1, int y1, int x2, int y2, int c){ // su dung thuat toan mid point
+
         int x, y, dx, dy,d; 
         y = y1; 
        dx = x2 - x1; 
@@ -52,29 +54,65 @@ void Mid_line(int x1, int y1, int x2, int y2, int c){
        if(x1==x2){
        	while(y1<=y2){
        		putpixel(x1, y1++, c);
-		   }
+       		}
 	   }else{
        for (x=x1; x<=x2; x++){ 
            putpixel(x, y, c); 
            if (d <= 0) 
                 d = d + dy; 
           else { 
-                y ++; 
+                	y ++;
                d = d + dy - dx; 
           }} 
       }
 }
 
-void veHCN(int xa, int ya, int xc, int yc, int color){
+void veHCNRong(int xa, int ya, int xc, int yc, int color){ // tim toa do  abcd dua tren a va c va ve cac duong thang tuong ung cua hcn
 	int xb = xc;
 	int yb = ya;
-	while(ya <= yc){
-		Mid_line(xa, ya, xb, yb, color);
-		ya++;
-		yb++;
-		}
-	}
+	int xd = xa;
+	int yd = yc;
+	Mid_line(xa, ya, xb, yb, color);
+	Mid_line(xb, yb, xc, yc, color);
+	Mid_line(xd, yd, xc, yc, color);
+	Mid_line(xa, ya, xd, yd, color);
+}
+
+void ToLoang(int x,int y,int color, int MauNen)
+{
+    if (getpixel(x,y)==MauNen  && x<getmaxx() && y<getmaxy()) // kiem tra xem da dung bien chua 
+    {
+    putpixel(x,y,color);
+    ToLoang(x-1,y,color, MauNen);
+    ToLoang(x,y-1,color, MauNen);
+    ToLoang(x+1,y,color, MauNen);
+    ToLoang(x,y+1,color, MauNen);
+    }   
+//    delay(10);
+}
+void veHCNToMauLoang(int xa, int ya, int xc, int yc, int color, int mauNen){
+	// xu li input truoc khi ve hcn rong
+	// th1
+	if(xa>xc){
+	int tempx = xa;
+	int tempy = ya;
 	
+	xa = xc;
+	ya=yc;
+	
+	xc = tempx;
+	yc = tempy;
+	}
+	//th2
+	if(ya > yc){
+		int temp = ya;
+		ya = yc;
+		yc = temp;
+		}
+	// bat dau ve
+	veHCNRong(xa, ya, xc, yc, color);
+	ToLoang(xa+1, ya + 1, color,mauNen);
+}
 	// long gach cham cham gach
 	
 void HaiChamGach(int x1, int y1, int x2, int y2, int c){ //---- - - ----
@@ -227,24 +265,22 @@ void menu(){
 				break;
 			}
 			case 2:{
-				int xa, ya, d, r;
+				int xa, ya, xc, yc;
 				cout << "Nhap toa do diem A cua hinh chu nhat\nxA = ";
 				cin >> xa;
 				cout << "yA = ";
 				cin >> ya;
-				cout << "Chieu dai = ";
-				cin >> d;
-				cout << "Chieu rong = ";
-				cin >> r;
-				int xc = xa + d;
-				int yc = ya + r;
+				cout << "Nhap toa do diem C cua hinh chu nhat\nxC = ";
+				cin >> xc;
+				cout << "yC = ";
+				cin >> yc;
 				int gd,gm;
 				gd=DETECT;
 			    initgraph(&gd,&gm,NULL);        
 			    setcolor(255);
 			    settextstyle(10,0,2);
 			    outtextxy(100,10,"Hinh chu nhat");
-				veHCN(xa, ya, xc, yc, color);
+				veHCNToMauLoang(xa, ya, xc, yc, color, background);
 				getch();
 				closegraph();
 				break;
