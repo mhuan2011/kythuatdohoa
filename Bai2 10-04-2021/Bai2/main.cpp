@@ -33,11 +33,8 @@ void lineDDA(int x1, int y1, int x2, int y2, int l){       // thuat toan DDA
 			m=0;
     		continue;
 		}
-		else {
-			
-	        m++;  
-	        
-	 
+		else {		
+	        m++;           
 	        putpixel(Round(x),Round(y),color);
 		}
         
