@@ -34,6 +34,8 @@ void lineDDA(int x1, int y1, int x2, int y2, int l){       // thuat toan DDA
          
     }
 }
+
+
 int main(){
 	int x,y,x1,y1;
 	cout<<"Nhap toa do diem dau:"<<endl;
