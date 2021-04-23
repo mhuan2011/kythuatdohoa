@@ -20,7 +20,7 @@ void Elipse(int x_center,int y_center,int a,int b,int color)// ve elipse
     while(((float)b2/a2)*x<=y)
     {
 		//put pixel
-		if(dem == 1){
+		if(dem == 3){
 			dem = 0;
 		}
 		else{
@@ -52,7 +52,7 @@ void Elipse(int x_center,int y_center,int a,int b,int color)// ve elipse
     while(((float)a2/b2)*y<=x)
     {
     	//put pixel
-    	if(dem == 1){
+    	if(dem == 3){
 			dem = 0;
 		}
 		else{
