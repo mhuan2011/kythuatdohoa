@@ -1,0 +1,17 @@
+- Giao diện: 
+ 2 button: 
+	2D: 2 ngữ cảnh (Nhân, Hiền) + vẽ hệ trục 2d
+		+ Cối xoay gió 
+		+ Xe tăng
+	3D: 2 vật 3d (Thông số do người dùng chọn)
+		+ Hình hộp (Vinh) + hệ trục 3D
+		+ Hình cầu (Bất kì hình 3D khác hình trên)(Long)
+		-> Cho người dùng chọn và nhập số liệu
+
+- Yêu cầu
+	- Trục tọa độ ứng với mỗi đơn vị là 5px(2D và 3D)
+	- Hình 3D phải đảm bảo các cạnh không nhìn thấy là nét khuất, 
+có thể vẽ chồng lên nhau , những đường bị hình mới đè lên không cần vẽ lại 
+nét khuất đảm bảo hình đang vẽ thỏa đk là được.
+	- 3D áp dụng các phép chiếu để vẽ
+==== Chi tiết đọc file hướng dẫn ====

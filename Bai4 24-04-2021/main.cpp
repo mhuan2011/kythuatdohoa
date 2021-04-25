@@ -87,7 +87,7 @@ int main()
     
     int gd,gm=VGAMAX; gd=DETECT;
     initgraph(&gd,&gm,NULL);
-    Elipse(250,250,rLon,rBe,color);
+    Elipse(300,300,rLon,rBe,color);
     getch();
     return 0;
 }
