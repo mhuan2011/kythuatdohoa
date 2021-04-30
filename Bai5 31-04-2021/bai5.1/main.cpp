@@ -31,7 +31,7 @@ void rotate_point(float x1,float y1,float cx,float cy,float angle)
   
 	int ac=round(x1);
 	int bc=round(y1);
-  
+	cout<<"x2="<<ac<<" "<<"y2="<<bc<<endl;
 	float x2=chuyenDoiX(ac);
 	float y2=chuyenDoiY(bc);
 	
