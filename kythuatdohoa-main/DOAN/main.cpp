@@ -27,7 +27,7 @@ void giaoDien(){
 
 
 	rectangle(0,0,250,150); // khung nhap lieu
-	rectangle(20,180,230,450);
+	rectangle(20,180,230,500);
 	settextstyle(8, 0, 1);
 	outtextxy(35, 170, "Parameters");
 	
@@ -88,6 +88,28 @@ void v_lineDDA1(int x1, int y1, int x2, int y2, int color){
         x += x_inc;
         y += y_inc;
         if(dem % 5 == 0){
+        	putpixel(Round(x),Round(y),color);	
+		}
+		dem++;
+    }
+}
+
+//putpixel Oz
+void v_lineDDAOz(int x1, int y1, int x2, int y2, int color){       
+    int  Dx = x2 - x1, Dy = y2 - y1;  
+    float x_inc , y_inc;
+    float step=max(abs(Dx),abs(Dy));
+    x_inc=Dx/step;
+    y_inc=Dy/step;
+    float x=x1, y=y1;// Khoi tao cac gia tri ban dau
+    putpixel(x, y, color);
+    int dem = 0;
+    int k=1;
+    while(k <=step){
+        k++;
+        x += x_inc;
+        y += y_inc;
+        if(dem % 3 == 0){
         	putpixel(Round(x),Round(y),color);	
 		}
 		dem++;
@@ -191,7 +213,7 @@ void v_veTrucOxyz(){
 	//truc Ox
 	v_lineDDA1(450, 400, 800, 400, 15);
 	//truc Oz
-	v_lineDDA1(450, 400, 270, 530, 15);
+	v_lineDDAOz(450, 400, 270, 530, 15);
 }
 
 //1.5. Ve hinh hop chu nhat
@@ -199,7 +221,7 @@ void v_hinhHopCN(int x, int y, int CD, int CR, int CC){
 	int dai = Round(CD*5/2), rong = CR*5, cao = CC*5;
 	
 	//HCM mat sau
-	v_lineDDA3(x, y, x, y - cao, 2, 2); 
+	v_lineDDA3(x, y, x, y - cao, 2, 2);
 	v_lineDDA3(x, y, x + rong, y, 2, 2);
 	v_lineDDA(x, y - cao, x + rong, y - cao, 2);
 	v_lineDDA(x + rong, y, x + rong, y - cao, 2);
@@ -282,9 +304,10 @@ int v_nhapDuLieu(){
 			v_veTrucOxyz();
 			outtextxy(50, 200, "X: ");
 			outtextxy(50, 250, "Y: ");
-			outtextxy(50, 300, "Dai: ");
-			outtextxy(50, 350, "Rong: ");
-			outtextxy(50, 400, "Cao: ");
+			outtextxy(50, 300, "Z: ");
+			outtextxy(50, 350, "Dai: ");
+			outtextxy(50, 400, "Rong: ");
+			outtextxy(50, 450, "Cao: ");
 			int x = 150;
 			int y = 200;
 			string so;
@@ -315,8 +338,8 @@ int v_nhapDuLieu(){
 						so += a[0];
 						outtextxy(x, y, a);
 						x+=15;
-						if(check > 4){
-							v_hinhHopCN(kichThuoc[0]*5 + 450, kichThuoc[1]*5 + 400, kichThuoc[2], kichThuoc[3], kichThuoc[4]);
+						if(check > 5){
+							v_hinhHopCN((kichThuoc[0] - kichThuoc[2])*5 + 450, 400 - (kichThuoc[1] - kichThuoc[2])*5, kichThuoc[3], kichThuoc[4], kichThuoc[5]);
 							//v_hinhChopVuong(kichThuoc[0]*5 + 450, kichThuoc[1]*5 + 400, kichThuoc[2], kichThuoc[3], kichThuoc[4]);
 							break;
 						}
@@ -367,6 +390,7 @@ void getMouseClick(){
 			outtextxy(100, 28, "2D");
 			setfillstyle(1, 0);
 			bar(250,0,890,590);
+			
 			
 			//vinh:
 			v_nhapDuLieu();
