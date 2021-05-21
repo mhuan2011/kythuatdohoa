@@ -31,6 +31,7 @@ void giaoDien(){
 	settextstyle(8, 0, 1);
 	outtextxy(35, 170, "Parameters");
 	
+	
 	rectangle(250,0,890,590); //khung thao tac
 	
 	
@@ -316,6 +317,15 @@ int v_nhapDuLieu(){
 			int check = 0;//dem de thoat ra hoi nhap
 			while(true){
 				//nhap so vao man hinh graphic
+				int Mx, My;
+				getmouseclick(WM_LBUTTONDOWN, Mx, My);
+				if(Mx>70 && Mx<180 && My>520 && My<550){
+					setfillstyle(1, 0);
+					bar(250,0,890,590);
+					v_veTrucOxyz();
+					break;
+				}
+				
 				if(kbhit()){
 					char chr;
 					chr = getch();
@@ -395,7 +405,13 @@ void getMouseClick(){
 			//vinh:
 			v_nhapDuLieu();
 		}
-		
+		if(x>70 && x<180 && y>520 && y<550){
+			setfillstyle(1, 0);
+			bar(250,0,890,590);
+			v_veTrucOxyz();
+			setfillstyle(1, 15);
+			bar(30,190,220,480); 
+		}
 		if(kbhit()) break;
     }
 	
