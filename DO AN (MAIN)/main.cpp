@@ -9,6 +9,114 @@ using namespace std;
 int color = 1;
 //void v_nhapDuLieu();
 // Huan------------------------------------------------------------------------------------------
+void Loang(int x,int y, int mauto,int maubien){
+	int mauHienTai=getpixel(x,y);
+	if(mauHienTai!=mauto && mauHienTai!=maubien){
+		putpixel(x,y,mauto);
+		Loang(x-1,y,mauto,maubien);
+		Loang(x+1,y,mauto,maubien);
+		Loang(x,y-1,mauto,maubien);
+		Loang(x,y+1,mauto,maubien);
+	}
+}
+void MayBay(float x,float y,float a,float b){
+	//--------may bay
+		line(x*80+a,y*300+b,x*250+a,y*300+b);
+		line(x*150+a,y*340+b,x*200+a,y*340+b);
+		line(x*150+a,y*340+b,x*100+a,y*400+b);
+		line(x*200+a,y*340+b,x*100+a,y*400+b);
+		line(x*80+a,y*380+b,x*115+a,y*380+b);
+		line(x*132+a,y*380+b,x*250+a,y*380+b);
+		ellipse(x*250+a,y*340+b,270,90,x*80,y*40);
+		line(x*100+a,y*270+b,x*150+a,y*300+b);
+		line(x*100+a,y*270+b,x*200+a,y*300+b);
+		line(x*80+a,y*300+b,x*65+a,y*260+b);
+		arc(x*80+a,y*340+b,180,270,((x+y)/2)*40);
+		line(x*40+a,y*340+b,x*40+a,y*260+b);
+		line(x*40+a,y*260+b,x*65+a,y*260+b);
+		line(x*261+a,y*333+b,x*320+a,y*333+b);
+		line(x*261+a,y*333+b,x*261+a,y*310+b);
+		rectangle(x*100+a,y*310+b,x*120+a,y*330+b);
+		rectangle(x*130+a,y*310+b,x*150+a,y*330+b);
+		rectangle(x*160+a,y*310+b,x*180+a,y*330+b);
+		rectangle(x*190+a,y*310+b,x*210+a,y*330+b);
+		rectangle(x*220+a,y*310+b,x*240+a,y*330+b);
+}
+void MayBayNguoc(float x,float y,float a,float b){
+	//--------may bay
+		line(x*80+a,y*300+b,x*250+a,y*300+b);
+		line(x*150+a,y*340+b,x*200+a,y*340+b);
+		line(x*150+a,y*340+b,x*100+a,y*400+b);
+		line(x*200+a,y*340+b,x*100+a,y*400+b);
+		line(x*80+a,y*380+b,x*115+a,y*380+b);
+		line(x*132+a,y*380+b,x*250+a,y*380+b);
+		ellipse(x*250+a,y*340+b,90,270,x*80,y*40);
+		line(x*100+a,y*270+b,x*150+a,y*300+b);
+		line(x*100+a,y*270+b,x*200+a,y*300+b);
+		line(x*80+a,y*300+b,x*65+a,y*260+b);
+		arc(x*80+a,y*340+b,270,360,y*40);
+		line(x*40+a,y*340+b,x*40+a,y*260+b);
+		line(x*40+a,y*260+b,x*65+a,y*260+b);
+		line(x*261+a,y*333+b,x*320+a,y*333+b);
+		line(x*261+a,y*333+b,x*261+a,y*310+b);
+		rectangle(x*100+a,y*310+b,x*120+a,y*330+b);
+		rectangle(x*130+a,y*310+b,x*150+a,y*330+b);
+		rectangle(x*160+a,y*310+b,x*180+a,y*330+b);
+		rectangle(x*190+a,y*310+b,x*210+a,y*330+b);
+		rectangle(x*220+a,y*310+b,x*240+a,y*330+b);
+}
+void Nha(int i){
+	rectangle(510-i,459,550-i,430) ;
+		rectangle(550-i,459,610-i,430);
+		line(530-i,410,550-i,430);
+		line(530-i,410,510-i,430);
+		line(590-i,410,610-i,430);
+		line(590-i,410,530-i,410);
+		
+		rectangle(430-i,430,490-i,459);
+		rectangle(390-i,430,430-i,459);
+		line(410-i,410,430-i,430);
+		line(410-i,410,390-i,430);
+		line(410-i,410,470-i,410);
+		line(470-i,410,490-i,430);
+}
+void veMayBay(){
+	float x=0.5,y=0.5,a=0,b=0,c=600;
+	int x1,y1,i=0;
+	int ybom=200;
+	int rbom=10;
+	char stop=1;
+	
+	while(stop!='0')
+	{
+		//----hien thi
+		cleardevice();
+		MayBay(x,y,a,0);
+		MayBayNguoc(-x,y,c,80);
+		Nha(i);
+		line(0,459,679,459);
+		
+		
+		circle(100,ybom,rbom);
+		if(rbom==70){
+			break;
+		}
+		ybom+=2;
+		if(ybom==460){
+			ybom-=2;
+			rbom+=5;
+			circle(100,ybom,rbom);
+			Loang(100,458,12,0);
+		}
+		c--;
+		i++;
+		delay(30);
+		if(kbhit()){
+			stop = getch();	
+		}
+		
+	}
+}
 void giaoDien(){
 
 	initwindow(900, 600);			
@@ -744,10 +852,15 @@ int tiemKich(){
 			v_veTrucOxyz();
 			break;
 		}
-				
+		if(Mx>265 && Mx<365 && My>7 && My<34){
+			chonNguCanh(1);
+			veMayBay();
+			return 3;		
+		}		
 		if(Mx>380 && Mx<515 && My>7 && My<34){
 			chonNguCanh(2);
-			return 1;
+			
+			return 3;
 		}
 		if(kbhit()){
 			break;
@@ -864,10 +977,7 @@ void getMouseClick(){
 			chonNguCanh(1);
 			xuli2D();
 			x= 60; y = 100;
-//			outtextxy(50, 200, "Height: ");
-			
-//			gotoXY(45, 170);
-//			int x; cin >>x;
+			break;
 			
 		}
 	    
@@ -907,6 +1017,7 @@ void getMouseClick(){
 
 int main()
 {
+	while(true){
 	
 	giaoDien();	
 	getMouseClick();
@@ -916,4 +1027,5 @@ int main()
 
 
     closegraph( );
+}
 }
