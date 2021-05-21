@@ -7,7 +7,7 @@ using namespace std;
 #define Round(a) (int)(a+0.5)   // lam tron so
 #define max(a,b) (a>b)?a:b
 int color = 1;
-
+//void v_nhapDuLieu();
 // Huan------------------------------------------------------------------------------------------
 void giaoDien(){
 
@@ -35,6 +35,8 @@ void giaoDien(){
 	rectangle(250,0,890,590); //khung thao tac
 	
 	
+	
+	
 	setfillstyle(1, 4);
 	setbkcolor(4);	
 	bar(70,520,180,550); //clear button
@@ -44,7 +46,50 @@ void giaoDien(){
 	setbkcolor(15);
 }
 
+void chonHinh(int x){
+	int a=0;
+	int b=0;
 
+	if(x==1){
+		a=15;
+		b=0;
+	}
+	else {
+		a=0;
+		b=15;
+	}
+	
+	setfillstyle(1, a);
+	setbkcolor(a);	
+	bar(265,7,365,34); //hinh hop
+	setcolor(b);
+	settextstyle(3, 0, 1);
+	outtextxy(275, 8, "Hinh hop");
+
+	
+	
+	setfillstyle(1, b);
+	setbkcolor(b);	
+	bar(380,7,485,34); //hinh cau
+	setcolor(a);
+	outtextxy(395, 8, "Hinh cau");
+
+//reset font color
+	settextstyle(8, 0, 1);
+	setbkcolor(15);
+	setcolor(0);
+	
+}
+
+//chuyen String sang char array
+char* chuyenDoiStringSangChar(string a){
+	int n = a.length();
+	char m[n];
+	for(int i=0; i<n ; i++){
+		m[i] = a[i];
+	}
+	return m;
+}
 // Vinh------------------------------------------------------------------------------------------
 //1. Ve do thi
 struct toaDo{
@@ -299,19 +344,18 @@ void v_hinhChopVuong(int x, int y, int CD, int CR, int CC){
 	v_lineDDA(a.x+rong, a.y, x, y-cao, 2);
 	v_lineDDA(x+rong, y, x, y-cao, 2);
 }
-
-//1.7. xu li nhap
-int v_nhapDuLieu(){
-			v_veTrucOxyz();
+int v_nhapDuLieu2(){ //phan ve hinh cau
+			chonHinh(2);
+			setfillstyle(1, 15);
+			bar(30,190,220,480); 
 			outtextxy(50, 200, "X: ");
 			outtextxy(50, 250, "Y: ");
 			outtextxy(50, 300, "Z: ");
-			outtextxy(50, 350, "Dai: ");
-			outtextxy(50, 400, "Rong: ");
-			outtextxy(50, 450, "Cao: ");
+			outtextxy(50, 350, "Ban kinh: ");
 			int x = 150;
 			int y = 200;
 			string so;
+			string soHien = "";
 			int kichThuoc[6];
 			int dem = 0;//dem kich thuoc cua hinh hop
 			int check = 0;//dem de thoat ra hoi nhap
@@ -324,6 +368,10 @@ int v_nhapDuLieu(){
 					bar(250,0,890,590);
 					v_veTrucOxyz();
 					break;
+				}
+				if(Mx>265 && Mx<365 && My>7 && My<34){
+					chonHinh(1);
+					return 1;		
 				}
 				
 				if(kbhit()){
@@ -342,11 +390,23 @@ int v_nhapDuLieu(){
 							x = 150;
 							dem++;
 							check++;
+							soHien = "";
+							
+//							cout<<"kichThuoc[0] = "<<kichThuoc[0];
 						}
+						soHien = chr;
+						char *cstr = new char[soHien.length()+1];
+						strcpy(cstr, soHien.c_str());
+						delete [] cstr;
+						//-----------
 						char a[10];
+				
 						a[0]= chr;
+
 						so += a[0];
-						outtextxy(x, y, a);
+
+						cout <<a;
+						outtextxy(x, y, cstr);
 						x+=15;
 						if(check > 5){
 							v_hinhHopCN((kichThuoc[0] - kichThuoc[2])*5 + 450, 400 - (kichThuoc[1] - kichThuoc[2])*5, kichThuoc[3], kichThuoc[4], kichThuoc[5]);
@@ -359,7 +419,96 @@ int v_nhapDuLieu(){
 			}
 }
 
+//1.7. xu li nhap
+int v_nhapDuLieu(){ //phan ve hinh hop
+			v_veTrucOxyz();
+			setfillstyle(1, 15);
+			bar(30,190,220,480); 
+			outtextxy(50, 200, "X: ");
+			outtextxy(50, 250, "Y: ");
+			outtextxy(50, 300, "Z: ");
+			outtextxy(50, 350, "Dai: ");
+			outtextxy(50, 400, "Rong: ");
+			outtextxy(50, 450, "Cao: ");
+			int x = 150;
+			int y = 200;
+			string so;
+			string soHien = "";
+			int kichThuoc[6];
+			int dem = 0;//dem kich thuoc cua hinh hop
+			int check = 0;//dem de thoat ra hoi nhap
+			while(true){
+				//nhap so vao man hinh graphic
+				int Mx, My;
+				getmouseclick(WM_LBUTTONDOWN, Mx, My);
+				if(Mx>70 && Mx<180 && My>520 && My<550){
+					setfillstyle(1, 0);
+					bar(250,0,890,590);
+					v_veTrucOxyz();
+					break;
+				}
+				
+				if(Mx>380 && Mx<485 && My>7 && My<34){
+					chonHinh(2);
+					return 1;
+				}
+				
+				if(kbhit()){
+					char chr;
+					chr = getch();
+					if(int(chr) == 8){
+						x -=15;
+						outtextxy(x, y, " ");
+					}
+					else if (int(chr) >= 48 && int(chr) <= 57  || int(chr) == 13){
+						if(int(chr) == 13){
+							int tmp = atoi(so.c_str());
+							so = "";
+							kichThuoc[dem] = tmp;
+							y += 50;
+							x = 150;
+							dem++;
+							check++;
+							soHien = "";
+							
+//							cout<<"kichThuoc[0] = "<<kichThuoc[0];
+						}
+						soHien = chr;
+						char *cstr = new char[soHien.length()+1];
+						strcpy(cstr, soHien.c_str());
+						delete [] cstr;
+						//-----------
+						char a[10];
+				
+						a[0]= chr;
 
+						so += a[0];
+
+						cout <<a;
+						outtextxy(x, y, cstr);
+						x+=15;
+						if(check > 5){
+							v_hinhHopCN((kichThuoc[0] - kichThuoc[2])*5 + 450, 400 - (kichThuoc[1] - kichThuoc[2])*5, kichThuoc[3], kichThuoc[4], kichThuoc[5]);
+							//v_hinhChopVuong(kichThuoc[0]*5 + 450, kichThuoc[1]*5 + 400, kichThuoc[2], kichThuoc[3], kichThuoc[4]);
+							return 2;
+						}
+					}
+					
+				}
+			}
+}
+void xuli3D(){
+	int a = v_nhapDuLieu();
+	if(a==1){
+		int b= v_nhapDuLieu2();
+		if(b==1){
+			xuli3D();
+		}
+	}
+	if(a==2){
+		xuli3D();
+	}
+}
 void getMouseClick(){
 	int x, y;        // Coordinates of the mouse click
 
@@ -371,7 +520,7 @@ void getMouseClick(){
         getmouseclick(WM_LBUTTONDOWN, x, y);
 
 	    if(x > 50 && x < 200 && y > 20 && y <60){ //xua li 2d
-	    	setcolor(BLACK);
+	    	setcolor(1);
 			settextstyle(8, 0, 3);
 			outtextxy(100, 28, "2D");
 			setcolor(0);
@@ -392,7 +541,7 @@ void getMouseClick(){
 		}
 	    
 	    if(x > 50 && x < 200 && y > 80 && y <120){ //xu li 3d
-	    	setcolor(BLACK);
+	    	setcolor(1);
 			settextstyle(8, 0, 3);
 			outtextxy(100, 88, "3D");
 			setcolor(0);
@@ -400,10 +549,10 @@ void getMouseClick(){
 			outtextxy(100, 28, "2D");
 			setfillstyle(1, 0);
 			bar(250,0,890,590);
-			
+			chonHinh(1);
 			
 			//vinh:
-			v_nhapDuLieu();
+			xuli3D();
 		}
 		if(x>70 && x<180 && y>520 && y<550){
 			setfillstyle(1, 0);
