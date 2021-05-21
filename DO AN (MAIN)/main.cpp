@@ -2,10 +2,12 @@
 #include <iostream>
 #include <windows.h>
 #include <stdlib.h>
+#include <cmath>
 using namespace std;
 //#define length 200;
 #define Round(a) (int)(a+0.5)   // lam tron so
 #define max(a,b) (a>b)?a:b
+#define bgColor 0
 int color = 1;
 //void v_nhapDuLieu();
 // Huan------------------------------------------------------------------------------------------
@@ -860,7 +862,7 @@ int tiemKich(){
 		if(Mx>380 && Mx<515 && My>7 && My<34){
 			chonNguCanh(2);
 			
-			return 3;
+			return 1;
 		}
 		if(kbhit()){
 			break;
@@ -872,8 +874,261 @@ int tiemKich(){
 		//end xu li chuyen ngu canh
 	}
 }
+// Hien ve coi xoay gio
+// ve hinh tron tam cua canh quat
+void drawcircle(int x0, int y0, int radius,int color)
+{
+    int x = radius;
+    int y = 0;
+    int err = 0;
+ 
+    while (x >= y)
+    {
+	putpixel(x0 + x, y0 + y, color);
+	putpixel(x0 + y, y0 + x, color);
+	putpixel(x0 - y, y0 + x, color);
+	putpixel(x0 - x, y0 + y, color);
+	putpixel(x0 - x, y0 - y, color);
+	putpixel(x0 - y, y0 - x, color);
+	putpixel(x0 + y, y0 - x, color);
+	putpixel(x0 + x, y0 - y, color);
+ 
+	if (err <= 0)
+	{
+	    y += 1;
+	    err += 2*y + 1;
+	}
+ 
+	if (err > 0)
+	{
+	    x -= 1;
+	    err -= 2*x + 1;
+	}
+    }
+}
+// ham quay mot diem quanh 1 diem bat ki voi goc angle
+void rotate_point(int &x1,int &y1,int cx,int cy,float angle)
+{
+	angle=(angle*3.14)/180;
+	float s = sin(angle);
+	float c = cos(angle);
+	
+	// tinh tien ve goc toa do
+	x1 -= cx;
+	y1 -= cy;
+	
+	// quay
+	float xnew = x1 * c - y1 * s;
+	float ynew = x1 * s + y1 * c;
+	
+	// tinh tien ve vi tri cu
+	xnew = xnew + cx;
+	ynew = ynew + cy;
+  
+	x1=Round(xnew);
+	y1=Round(ynew);
+}
+// ve duong thang bang thuat toan dda
+void lineDDA(int x1, int y1, int x2, int y2, int color){       // thuat toan DDA
+    int  Dx = x2 - x1, Dy = y2 - y1;  
+    float x_inc , y_inc;
+    float step=max(abs(Dx),abs(Dy));
+    x_inc=Dx/step;
+    y_inc=Dy/step;
+    float x=x1, y=y1;
+    putpixel(x, y, color);
+      
+    int k=1;
+    while(k <=step){
+    	k++;
+    	x += x_inc;
+	    y += y_inc;           
+	        putpixel(Round(x),Round(y),color);
+		
+    }
+}
+// ve tam giac can de ve canh quat
+void veTamGiacCan(int xa, int ya, int xb, int yb, int xc, int yc, int color){
+	lineDDA(xa, ya, xb, yb, color);
+	lineDDA(xa, ya, xc, yc, color);
+	lineDDA(xb, yb, xc, yc, color);
+}
+// xoay duong thang tu vi tri truyen vao den vi tri moi voi 1 goc = goc
+// dong thoi xoa duong thang cu di
+void xoayDuongThang(int &xa, int &ya, int &xb, int &yb, int xo, int yo, int goc, int color){
+	lineDDA(xa, ya, xb, yb, bgColor);
+	rotate_point(xa, ya, xo, yo, goc);
+	rotate_point(xb, yb, xo, yo, goc);
+		lineDDA(xa, ya, xb, yb, color);
+	
+	}
+
+// xoay duong thang tu vi tri truyen vao den vi tri moi voi 1 goc = goc
+// dong thoi xoa duong thang cu di
+void xoayTamGiac(int &xa, int &ya, int &xb, int &yb, int &xc, int &yc, int xo, int yo, int goc, int color){
+	veTamGiacCan(xa, ya, xb,  yb, xc, yc,bgColor);
+	rotate_point(xa, ya, xo, yo, goc);
+	rotate_point(xb, yb, xo, yo, goc);
+	rotate_point(xc, yc, xo, yo, goc);
+	veTamGiacCan(xa, ya, xb,  yb, xc, yc,color);
+	
+}
+// than coi xoay gio
+void veThanCoiXoayGio(int xo, int yo, int banKinh,int chieuCao, int color){
+		lineDDA(xo+banKinh, yo, xo+banKinh*3, yo+chieuCao, color);
+			lineDDA(xo-banKinh, yo, xo-banKinh*3, yo+chieuCao, color);
+			lineDDA(xo-banKinh*5, yo+chieuCao, xo+banKinh*5, yo+chieuCao, color);
+	
+	}
+// thuc hien phep quay nguyen canh quat
+void quayCanhQuat(int xo, int yo, int color){
+	
+	int banKinh = 15;
+	
+	// xo, yo la tam cua canh quat
+	int goc = 5;
+
+	int chieuDaiCanh = 25;
+	//duong thang ngang
+	int xa1 = xo;
+	int ya1 = yo-chieuDaiCanh;
+	int xb1 = xo;
+	int yb1 = yo+chieuDaiCanh;
+	
+	//duong thang doc
+	int xa2 = xo-chieuDaiCanh;
+	int ya2 = yo;
+	int xb2 = xo+chieuDaiCanh;
+	int yb2 = yo;
+	//xoay canh quat
+	int chieuDaiTamGiac = chieuDaiCanh*3;
+	int chieuDaiDay = chieuDaiTamGiac/2;
+	// canh quat phai
+	int xar = xo+chieuDaiCanh;
+	int yar	=yo;
+	int xbr =xar+chieuDaiTamGiac;
+	int ybr = yar-chieuDaiDay/2;
+	int xcr = xar+chieuDaiTamGiac;
+	int ycr = yar+chieuDaiDay/2;
+	//canh quat trai
+	int xal = xo-chieuDaiCanh;
+	int yal = yo;
+	int xbl = xal-chieuDaiTamGiac;
+	int ybl = yal+chieuDaiDay/2;
+	int xcl = xal-chieuDaiTamGiac;
+	int ycl = yal-chieuDaiDay/2;
+	// canh quat tren 
+	int xct = xo;
+	int yct = yo+chieuDaiCanh;
+	int xat = xct-chieuDaiDay/2;
+	int yat = yct+chieuDaiTamGiac;
+	int xbt = xct + chieuDaiDay/2;
+	int ybt = yct+chieuDaiTamGiac;
+	// canh quat duoi
+	int xcb = xo;
+	int ycb = yo-chieuDaiCanh;
+	int xab = xcb-chieuDaiDay/2;
+	int yab = ycb-chieuDaiTamGiac;
+	int xbb = xcb + chieuDaiDay/2;
+	int ybb =  ycb-chieuDaiTamGiac;
+	while(1){
+		drawcircle(xo, yo, banKinh, color);
+		xoayDuongThang(xa1, ya1, xb1, yb1, xo, yo, goc, color);
+		xoayDuongThang(xa2, ya2, xb2, yb2, xo, yo, goc, color);
+		xoayTamGiac(xar, yar, xbr, ybr, xcr, ycr, xo, yo, goc, color);
+		xoayTamGiac(xal, yal, xbl, ybl, xcl, ycl, xo, yo, goc, color);
+		xoayTamGiac(xat, yat, xbt, ybt, xct, yct, xo, yo, goc, color);
+		xoayTamGiac(xab, yab, xbb, ybb, xcb, ycb, xo, yo, goc, color);
+		veThanCoiXoayGio(xo, yo, banKinh, 150, color);
+	}
+	}
+char * stringToChar(string s){
+	char *text = new char[s.length() + 1];
+	strcpy(text, s.c_str());
+	return text;
+}
+void normal(){
+	setbkcolor(bgColor);
+	setcolor(color);
+}
+void xoayToaDo(int xb, int yb, int xo, int yo, int goc, int color){
+
+	string s = "(" + to_string(xb) + "," + to_string(yb) + ")";
+	char * text = stringToChar(s);
+	setbkcolor(0);
+	setcolor(0);
+	outtextxy(xb, yb, text);
+	rotate_point(xb, yb, xo, yo, goc);
+	s = "(" + to_string(xb) + "," + to_string(yb) + ")";
+	text = stringToChar(s);
+	normal();
+	outtextxy(xb, yb, text);
+	
+	delete [] text;
+}
+void veHCN(int x, int y, int cao,int color){
+	setbkcolor(0);
+	setcolor(color);
+	int y2 = y+cao;
+	for(int i=y-1; i<=y2; i++){
+		string s = "                                   ";
+		outtextxy(x-1,i,stringToChar(s));
+	}
+	normal();
+}
+
 int coiXoayGio(){
 	xoaKhungChiTiet();
+		int banKinh = 20;
+	
+	// xo, yo la tam cua canh quat
+	int goc = 5;
+	int xo=400, yo=400;
+	int chieuDaiCanh = 30;
+	int chieuCaoThan = 150;
+	//duong thang ngang
+	int xa1 = xo;
+	int ya1 = yo-chieuDaiCanh;
+	int xb1 = xo;
+	int yb1 = yo+chieuDaiCanh;
+	
+	//duong thang doc
+	int xa2 = xo-chieuDaiCanh;
+	int ya2 = yo;
+	int xb2 = xo+chieuDaiCanh;
+	int yb2 = yo;
+	//xoay canh quat
+	int chieuDaiTamGiac = chieuDaiCanh*3;
+	int chieuDaiDay = chieuDaiTamGiac/2;
+	// canh quat phai
+	int xar = xo+chieuDaiCanh;
+	int yar	=yo;
+	int xbr =xar+chieuDaiTamGiac;
+	int ybr = yar-chieuDaiDay/2;
+	int xcr = xar+chieuDaiTamGiac;
+	int ycr = yar+chieuDaiDay/2;
+	//canh quat trai
+	int xal = xo-chieuDaiCanh;
+	int yal = yo;
+	int xbl = xal-chieuDaiTamGiac;
+	int ybl = yal+chieuDaiDay/2;
+	int xcl = xal-chieuDaiTamGiac;
+	int ycl = yal-chieuDaiDay/2;
+	// canh quat tren 
+	int xct = xo;
+	int yct = yo+chieuDaiCanh;
+	int xat = xct-chieuDaiDay/2;
+	int yat = yct+chieuDaiTamGiac;
+	int xbt = xct + chieuDaiDay/2;
+	int ybt = yct+chieuDaiTamGiac;
+	// canh quat duoi
+	int xcb = xo;
+	int ycb = yo-chieuDaiCanh;
+	int xab = xcb-chieuDaiDay/2;
+	int yab = ycb-chieuDaiTamGiac;
+	int xbb = xcb + chieuDaiDay/2;
+	int ybb =  ycb-chieuDaiTamGiac;
+
 	while(true){
 		int Mx, My;
 		getmouseclick(WM_LBUTTONDOWN, Mx, My);
@@ -885,6 +1140,7 @@ int coiXoayGio(){
 		}
 		if(Mx>265 && Mx<365 && My>7 && My<34){
 			chonNguCanh(1);
+			veHCN(xo-chieuDaiCanh-chieuDaiTamGiac, yo-chieuDaiCanh-chieuDaiTamGiac, chieuDaiCanh+chieuDaiTamGiac+chieuCaoThan,0);
 			return 1;		
 		}
 		if(Mx > 50 && Mx < 200 && My > 80 && My <120){
@@ -893,7 +1149,16 @@ int coiXoayGio(){
 		if(kbhit()){
 			break;
 		}
-	
+		drawcircle(xo, yo, banKinh, color);
+		xoayDuongThang(xa1, ya1, xb1, yb1, xo, yo, goc, color);
+		xoayDuongThang(xa2, ya2, xb2, yb2, xo, yo, goc, color);
+		xoayToaDo(xbr, ybr, xo, yo, goc, color);
+		xoayTamGiac(xar, yar, xbr, ybr, xcr, ycr, xo, yo, goc, color);
+		xoayTamGiac(xal, yal, xbl, ybl, xcl, ycl, xo, yo, goc, color);
+		xoayTamGiac(xat, yat, xbt, ybt, xct, yct, xo, yo, goc, color);
+		xoayTamGiac(xab, yab, xbb, ybb, xcb, ycb, xo, yo, goc, color);
+		veThanCoiXoayGio(xo, yo, banKinh, chieuCaoThan, color);
+		delay(100);
 	}
 }
 void xuli2D(){
