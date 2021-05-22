@@ -11,6 +11,7 @@ using namespace std;
 int color = 1;
 //void v_nhapDuLieu();
 // Huan------------------------------------------------------------------------------------------
+void veHCN(int x,int y, int cao,int color);
 void Loang(int x,int y, int mauto,int maubien){
 	int mauHienTai=getpixel(x,y);
 	if(mauHienTai!=mauto && mauHienTai!=maubien){
@@ -68,23 +69,25 @@ void MayBayNguoc(float x,float y,float a,float b){
 		rectangle(x*220+a,y*310+b,x*240+a,y*330+b);
 }
 void Nha(int i){
-	rectangle(510-i,459,550-i,430) ;
-		rectangle(550-i,459,610-i,430);
-		line(530-i,410,550-i,430);
-		line(530-i,410,510-i,430);
-		line(590-i,410,610-i,430);
-		line(590-i,410,530-i,410);
-		
-		rectangle(430-i,430,490-i,459);
-		rectangle(390-i,430,430-i,459);
-		line(410-i,410,430-i,430);
-		line(410-i,410,390-i,430);
-		line(410-i,410,470-i,410);
-		line(470-i,410,490-i,430);
+	rectangle(510-i,459,550-i,430);
+	rectangle(550-i,459,610-i,430);
+	line(530-i,410,550-i,430);
+	line(530-i,410,510-i,430);
+	line(590-i,410,610-i,430);
+	line(590-i,410,530-i,410);
+	
+	rectangle(430-i,430,490-i,459);
+	rectangle(390-i,430,430-i,459);
+	line(410-i,410,430-i,430);
+	line(410-i,410,390-i,430);
+	line(410-i,410,470-i,410);
+	line(470-i,410,490-i,430);
 }
 void veMayBay(){
-	float x=0.5,y=0.5,a=0,b=0,c=600;
+	setcolor(15);
+	float x=0.5,y=0.5,a=250,b=0,c=600;
 	int x1,y1,i=0;
+	int xbom=350;
 	int ybom=200;
 	int rbom=10;
 	char stop=1;
@@ -92,14 +95,15 @@ void veMayBay(){
 	while(stop!='0')
 	{
 		//----hien thi
-		cleardevice();
+		//cleardevice();
+		veHCN(255,100,570,0);
 		MayBay(x,y,a,0);
 		MayBayNguoc(-x,y,c,80);
 		Nha(i);
-		line(0,459,679,459);
+		line(250,459,800,459);
 		
-		
-		circle(100,ybom,rbom);
+		setcolor(15);
+		circle(xbom,ybom,rbom);
 		if(rbom==70){
 			break;
 		}
@@ -107,8 +111,8 @@ void veMayBay(){
 		if(ybom==460){
 			ybom-=2;
 			rbom+=5;
-			circle(100,ybom,rbom);
-			Loang(100,458,12,0);
+			circle(xbom,ybom,rbom);
+			Loang(xbom,458,12,15);
 		}
 		c--;
 		i++;
@@ -116,6 +120,8 @@ void veMayBay(){
 		if(kbhit()){
 			stop = getch();	
 		}
+		//---------------
+		
 		
 	}
 }
@@ -872,6 +878,7 @@ int tiemKich(){
 		}
 		
 		//end xu li chuyen ngu canh
+		
 	}
 }
 // Hien ve coi xoay gio
@@ -1051,21 +1058,21 @@ void normal(){
 	setbkcolor(bgColor);
 	setcolor(color);
 }
-void xoayToaDo(int xb, int yb, int xo, int yo, int goc, int color){
-
-	string s = "(" + to_string(xb) + "," + to_string(yb) + ")";
-	char * text = stringToChar(s);
-	setbkcolor(0);
-	setcolor(0);
-	outtextxy(xb, yb, text);
-	rotate_point(xb, yb, xo, yo, goc);
-	s = "(" + to_string(xb) + "," + to_string(yb) + ")";
-	text = stringToChar(s);
-	normal();
-	outtextxy(xb, yb, text);
-	
-	delete [] text;
-}
+//void xoayToaDo(int xb, int yb, int xo, int yo, int goc, int color){
+//
+//	string s = "(" + to_string(xb) + "," + to_string(yb) + ")";
+//	char * text = stringToChar(s);
+//	setbkcolor(0);
+//	setcolor(0);
+//	outtextxy(xb, yb, text);
+//	rotate_point(xb, yb, xo, yo, goc);
+//	s = "(" + to_string(xb) + "," + to_string(yb) + ")";
+//	text = stringToChar(s);
+//	normal();
+//	outtextxy(xb, yb, text);
+//	
+//	delete [] text;
+//}
 void veHCN(int x, int y, int cao,int color){
 	setbkcolor(0);
 	setcolor(color);
@@ -1141,7 +1148,7 @@ int coiXoayGio(){
 		if(Mx>265 && Mx<365 && My>7 && My<34){
 			chonNguCanh(1);
 			veHCN(xo-chieuDaiCanh-chieuDaiTamGiac, yo-chieuDaiCanh-chieuDaiTamGiac, chieuDaiCanh+chieuDaiTamGiac+chieuCaoThan,0);
-			return 1;		
+			return 3;		
 		}
 		if(Mx > 50 && Mx < 200 && My > 80 && My <120){
 			return 3;
@@ -1152,7 +1159,7 @@ int coiXoayGio(){
 		drawcircle(xo, yo, banKinh, color);
 		xoayDuongThang(xa1, ya1, xb1, yb1, xo, yo, goc, color);
 		xoayDuongThang(xa2, ya2, xb2, yb2, xo, yo, goc, color);
-		xoayToaDo(xbr, ybr, xo, yo, goc, color);
+		//xoayToaDo(xbr, ybr, xo, yo, goc, color);
 		xoayTamGiac(xar, yar, xbr, ybr, xcr, ycr, xo, yo, goc, color);
 		xoayTamGiac(xal, yal, xbl, ybl, xcl, ycl, xo, yo, goc, color);
 		xoayTamGiac(xat, yat, xbt, ybt, xct, yct, xo, yo, goc, color);
@@ -1228,6 +1235,7 @@ void getMouseClick(){
 		
 	    if(x > 50 && x < 200 && y > 20 && y <60){ //xua li 2d
 	    	setcolor(1);
+	    	setbkcolor(15);
 			settextstyle(8, 0, 3);
 			outtextxy(100, 28, "2D");
 			setcolor(0);
@@ -1242,12 +1250,13 @@ void getMouseClick(){
 			chonNguCanh(1);
 			xuli2D();
 			x= 60; y = 100;
-			break;
+			//break;
 			
 		}
 	    
 	    if(x > 50 && x < 200 && y > 80 && y <120){ //xu li 3d
 	    	setcolor(1);
+	    	setbkcolor(15);
 			settextstyle(8, 0, 3);
 			outtextxy(100, 88, "3D");
 			setcolor(0);
