@@ -95,7 +95,7 @@ void veMayBay(){
 	while(stop!='0')
 	{
 		//----hien thi
-		//cleardevice();
+		//cleardevice();	
 		veHCN(255,100,570,0);
 		MayBay(x,y,a,0);
 		MayBayNguoc(-x,y,c,80);
@@ -863,11 +863,11 @@ int tiemKich(){
 		if(Mx>265 && Mx<365 && My>7 && My<34){
 			chonNguCanh(1);
 			veMayBay();
-			return 3;		
+			return 2;		
 		}		
 		if(Mx>380 && Mx<515 && My>7 && My<34){
 			chonNguCanh(2);
-			
+			veHCN(255,100,570,0);
 			return 1;
 		}
 		if(kbhit()){
@@ -1147,8 +1147,9 @@ int coiXoayGio(){
 		}
 		if(Mx>265 && Mx<365 && My>7 && My<34){
 			chonNguCanh(1);
-			veHCN(xo-chieuDaiCanh-chieuDaiTamGiac, yo-chieuDaiCanh-chieuDaiTamGiac, chieuDaiCanh+chieuDaiTamGiac+chieuCaoThan,0);
-			return 3;		
+			veHCN(xo-chieuDaiCanh-chieuDaiTamGiac, yo-chieuDaiCanh-chieuDaiTamGiac, chieuDaiCanh+chieuDaiTamGiac+chieuCaoThan,0);	
+			veHCN(255,100,570,0);
+			return 1;		
 		}
 		if(Mx > 50 && Mx < 200 && My > 80 && My <120){
 			return 3;
@@ -1176,7 +1177,6 @@ void xuli2D(){
 		bar(30,190,220,480); 
 		while(true){
 			int b= coiXoayGio();
-	
 			if(b==1){
 				xuli2D();
 			}
@@ -1301,5 +1301,5 @@ int main()
 
 
     closegraph( );
-}
+	}
 }
