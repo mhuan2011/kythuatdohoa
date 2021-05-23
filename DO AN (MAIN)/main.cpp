@@ -1086,7 +1086,7 @@ char * stringToChar(string s){
 }
 void normal(){
 	setbkcolor(bgColor);
-	setcolor(color);
+	setcolor(15);
 }
 void xoayToaDo(int xb, int yb, int xo, int yo, int goc, int color){
 
@@ -1100,7 +1100,6 @@ void xoayToaDo(int xb, int yb, int xo, int yo, int goc, int color){
 	text = stringToChar(s);
 	normal();
 	outtextxy(xb, yb, text);
-	
 	delete [] text;
 }
 void veHCN(int x, int y, int cao,int color){
@@ -1119,8 +1118,9 @@ int coiXoayGio(){
 		int banKinh = 20;
 	
 	// xo, yo la tam cua canh quat
+	int color = 15;
 	int goc = 5;
-	int xo=400, yo=400;
+	int xo=550, yo=300;
 	int chieuDaiCanh = 30;
 	int chieuCaoThan = 150;
 	//duong thang ngang
