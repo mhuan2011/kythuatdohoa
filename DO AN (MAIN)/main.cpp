@@ -11,6 +11,8 @@ using namespace std;
 int color = 1;
 //void v_nhapDuLieu();
 // Huan------------------------------------------------------------------------------------------
+void inToaDo(int xb, int yb, int color);
+char* stringToChar(string s);
 void veHCN(int x,int y, int cao,int color);
 void Loang(int x,int y, int mauto,int maubien){
 	int mauHienTai=getpixel(x,y);
@@ -79,6 +81,7 @@ void MayBay(float x,float y,float a,float b){
 		rectangle(x*160+a,y*310+b,x*180+a,y*330+b);
 		rectangle(x*190+a,y*310+b,x*210+a,y*330+b);
 		rectangle(x*220+a,y*310+b,x*240+a,y*330+b);
+		
 }
 void MayBayNguoc(float x,float y,float a,float b){
 	//--------may bay
@@ -102,27 +105,39 @@ void MayBayNguoc(float x,float y,float a,float b){
 		rectangle(x*160+a,y*310+b,x*180+a,y*330+b);
 		rectangle(x*190+a,y*310+b,x*210+a,y*330+b);
 		rectangle(x*220+a,y*310+b,x*240+a,y*330+b);
+		
+		
+		int x1=x*100+a+20;
+		int y1=y*310+b;
+		inToaDo(x1,y1,15);
 }
-void Nha(int i){
-	rectangle(510-i,459,550-i,430);
-	rectangle(550-i,459,610-i,430);
-	line(530-i,410,550-i,430);
-	line(530-i,410,510-i,430);
-	line(590-i,410,610-i,430);
-	line(590-i,410,530-i,410);
+void Nha(int i,int y){
+	rectangle(520-i,459-y,560-i,430-y);
+	rectangle(560-i,459-y,620-i,430-y);
 	
-	rectangle(430-i,430,490-i,459);
-	rectangle(390-i,430,430-i,459);
-	line(410-i,410,430-i,430);
-	line(410-i,410,390-i,430);
-	line(410-i,410,470-i,410);
-	line(470-i,410,490-i,430);
+	
+	rectangle(440-i,430-y,500-i,459-y);
+	rectangle(400-i,430-y,440-i,459-y);
+	
 }
-
+void NocNha(int i,int y){
+	int color=getcolor();
+	setcolor(12);
+	line(540-i,410-y,560-i,430-y);
+	line(540-i,410-y,520-i,430-y);
+	line(600-i,410-y,620-i,430-y);
+	line(600-i,410-y,540-i,410-y);
+	
+	line(420-i,410-y,440-i,430-y);
+	line(420-i,410-y,400-i,430-y);
+	line(420-i,410-y,480-i,410-y);
+	line(480-i,410-y,500-i,430-y);
+	setcolor(color);
+}
 int veMayBay(){
 	setcolor(15);
 	float x=0.5,y=0.5,a=250,b=0,c=600;
-	int x1,y1,i=0;
+	int x1,y1,xnha=0,ynha=0,xnocnha=0,ynocnha=0;
 	int xbom=350;
 	int ybom=200;
 	int rbom=10;
@@ -161,12 +176,16 @@ int veMayBay(){
 		MayBay(x,y,a,0);
 		MayBayNguoc(-x,y,c,80);
 		setcolor(9); //huan
-		Nha(i);
+		Nha(xnha,ynha);
+		NocNha(xnocnha,ynocnha);
 		setcolor(10); //huan
 		line(250,459,800,459);
 		
 		setcolor(15);
 		circle(xbom,ybom,rbom);
+		if(ybom<460){
+			inToaDo(xbom+10,ybom,15);
+		}
 		if(rbom==70){
 			break;
 		}
@@ -176,9 +195,12 @@ int veMayBay(){
 			rbom+=5;
 			circle(xbom,ybom,rbom);
 			Loang(xbom,458,12,15);
+			ynha+=2;
+			ynocnha+=4;
 		}
 		c--;
-		i++;
+		xnha++;
+		xnocnha++;
 		delay(30);
 		if(kbhit()){
 			stop = getch();	
@@ -1087,6 +1109,19 @@ char * stringToChar(string s){
 void normal(){
 	setbkcolor(bgColor);
 	setcolor(15);
+}
+void inToaDo(int xb, int yb, int color){
+
+	string s = "(" + to_string(xb) + "," + to_string(yb) + ")Thuc hien tot 5k de phong chong dich";
+	char * text = stringToChar(s);
+	setbkcolor(0);
+	setcolor(0);
+	outtextxy(xb, yb, text);
+	s = "(" + to_string(xb) + "," + to_string(yb) + ")Thuc hien tot 5k de phong chong dich";
+	text = stringToChar(s);
+	normal();
+	outtextxy(xb, yb, text);
+	delete [] text;
 }
 void xoayToaDo(int xb, int yb, int xo, int yo, int goc, int color){
 
