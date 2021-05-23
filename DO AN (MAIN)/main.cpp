@@ -22,6 +22,41 @@ void Loang(int x,int y, int mauto,int maubien){
 		Loang(x,y+1,mauto,maubien);
 	}
 }
+
+void chonNguCanh(int x){
+	int a=0;
+	int b=0;
+
+	if(x==1){
+		a=15;
+		b=0;
+	}
+	else {
+		a=0;
+		b=15;
+	}
+	
+	setfillstyle(1, a);
+	setbkcolor(a);	
+	bar(265,7,365,34); //tiem kich
+	setcolor(b);
+	settextstyle(3, 0, 1);
+	outtextxy(275, 8, "Tiem kich");
+
+	
+	
+	setfillstyle(1, b);
+	setbkcolor(b);	
+	bar(380,7,515,34); //coi xoay gio
+	setcolor(a);
+	outtextxy(395, 8, "Coi xoay gio");
+
+//reset font color
+	settextstyle(8, 0, 1);
+	setbkcolor(15);
+	setcolor(0);
+	
+}
 void MayBay(float x,float y,float a,float b){
 	//--------may bay
 		line(x*80+a,y*300+b,x*250+a,y*300+b);
@@ -83,7 +118,8 @@ void Nha(int i){
 	line(410-i,410,470-i,410);
 	line(470-i,410,490-i,430);
 }
-void veMayBay(){
+
+int veMayBay(){
 	setcolor(15);
 	float x=0.5,y=0.5,a=250,b=0,c=600;
 	int x1,y1,i=0;
@@ -94,12 +130,39 @@ void veMayBay(){
 	
 	while(stop!='0')
 	{
+		
+		int Mx, My;
+		getmouseclick(WM_LBUTTONDOWN, Mx, My);
+		if(Mx>70 && Mx<180 && My>520 && My<550){
+			setfillstyle(1, 0);
+			bar(250,0,890,590);
+			chonNguCanh(1);
+			return 2;
+		}
+				
+		if(Mx>380 && Mx<485 && My>7 && My<34){
+			setfillstyle(1, 0);
+			bar(250,0,890,590);
+			chonNguCanh(2);
+			return 1;
+		}
+		if(Mx > 50 && Mx < 200 && My > 80 && My <120){
+			setfillstyle(1, 0);
+			bar(250,0,890,590);
+			cout <<"3D";
+			return 3;
+		}
 		//----hien thi
 		//cleardevice();	
-		veHCN(255,100,570,0);
+//		veHCN(255,100,570,0);
+		setfillstyle(1, 0);
+		bar(250,50,890,590);
+		
 		MayBay(x,y,a,0);
 		MayBayNguoc(-x,y,c,80);
+		setcolor(9); //huan
 		Nha(i);
+		setcolor(10); //huan
 		line(250,459,800,459);
 		
 		setcolor(15);
@@ -124,6 +187,7 @@ void veMayBay(){
 		
 		
 	}
+	return 2;
 }
 void giaoDien(){
 
@@ -201,40 +265,6 @@ void chonHinh(int x){
 }
 
 
-void chonNguCanh(int x){
-	int a=0;
-	int b=0;
-
-	if(x==1){
-		a=15;
-		b=0;
-	}
-	else {
-		a=0;
-		b=15;
-	}
-	
-	setfillstyle(1, a);
-	setbkcolor(a);	
-	bar(265,7,365,34); //tiem kich
-	setcolor(b);
-	settextstyle(3, 0, 1);
-	outtextxy(275, 8, "Tiem kich");
-
-	
-	
-	setfillstyle(1, b);
-	setbkcolor(b);	
-	bar(380,7,515,34); //coi xoay gio
-	setcolor(a);
-	outtextxy(395, 8, "Coi xoay gio");
-
-//reset font color
-	settextstyle(8, 0, 1);
-	setbkcolor(15);
-	setcolor(0);
-	
-}
 
 //chuyen String sang char array
 char* chuyenDoiStringSangChar(string a){
@@ -525,14 +555,16 @@ int v_nhapDuLieu(){ //phan ve hinh hop
 					setfillstyle(1, 0);
 					bar(250,0,890,590);
 					v_veTrucOxyz();
-					break;
+					return 2;
 				}
-				
+				//nut hinh cau
 				if(Mx>380 && Mx<485 && My>7 && My<34){
 					chonHinh(2);
 					return 1;
 				}
+				//nut 2d
 				if(Mx > 50 && Mx < 200 && My > 20 && My <60){
+		
 					return 3;
 				}
 				if(kbhit()){
@@ -803,7 +835,7 @@ int l_nhapDuLieu(){
 					setfillstyle(1, 0);
 					bar(250,0,890,590);
 					v_veTrucOxyz();
-					break;
+					return 2;
 				}
 				if(Mx>265 && Mx<365 && My>7 && My<34){
 					chonHinh(1);
@@ -850,36 +882,34 @@ int l_nhapDuLieu(){
 
 int tiemKich(){
 	xoaKhungChiTiet();
-	while(true){
-		//xu li chuyen ngu canh
-		int Mx, My;
-		getmouseclick(WM_LBUTTONDOWN, Mx, My);
-		if(Mx>70 && Mx<180 && My>520 && My<550){
-			setfillstyle(1, 0);
-			bar(250,0,890,590);
-			v_veTrucOxyz();
-			break;
-		}
-		if(Mx>265 && Mx<365 && My>7 && My<34){
-			chonNguCanh(1);
-			veMayBay();
-			return 2;		
-		}		
-		if(Mx>380 && Mx<515 && My>7 && My<34){
-			chonNguCanh(2);
-			veHCN(255,100,570,0);
-			return 1;
-		}
-		if(kbhit()){
-			break;
-		}
-		if(Mx > 50 && Mx < 200 && My > 80 && My <120){
-			return 3;
-		}
-		
-		//end xu li chuyen ngu canh
-		
-	}
+	int a = veMayBay();
+	return a;
+//	while(true){
+//		//xu li chuyen ngu canh
+//		int Mx, My;
+//		getmouseclick(WM_LBUTTONDOWN, Mx, My);
+//		if(Mx>70 && Mx<180 && My>520 && My<550){
+//			setfillstyle(1, 0);
+//			bar(250,0,890,590);
+//			chonNguCanh(1);
+//			return 2;
+//		}		
+//		if(Mx>380 && Mx<515 && My>7 && My<34){
+//			chonNguCanh(2);
+//			veHCN(255,100,570,0);
+//			return 1;
+//		}
+//		if(kbhit()){
+//			break;
+//		}
+//		if(Mx > 50 && Mx < 200 && My > 80 && My <120){
+//			return 3;
+//		}
+//		
+//		//end xu li chuyen ngu canh
+//		int a = veMayBay();
+//		return a;
+//	}
 }
 // Hien ve coi xoay gio
 // ve hinh tron tam cua canh quat
@@ -1142,8 +1172,9 @@ int coiXoayGio(){
 		if(Mx>70 && Mx<180 && My>520 && My<550){
 			setfillstyle(1, 0);
 			bar(250,0,890,590);
-			v_veTrucOxyz();
-			break;
+			chonNguCanh(2);
+//			v_veTrucOxyz();
+			return 2;
 		}
 		if(Mx>265 && Mx<365 && My>7 && My<34){
 			chonNguCanh(1);
@@ -1152,6 +1183,8 @@ int coiXoayGio(){
 			return 1;		
 		}
 		if(Mx > 50 && Mx < 200 && My > 80 && My <120){
+			setfillstyle(1, 0);
+			bar(250,0,890,590);
 			return 3;
 		}
 		if(kbhit()){
@@ -1207,7 +1240,7 @@ void xuli3D(){
 		bar(30,190,220,480); 
 		while(true){
 			int b= l_nhapDuLieu();
-			cout <<"b = "<<b;
+			
 			if(b==1){
 				xuli3D();
 			}
@@ -1218,10 +1251,12 @@ void xuli3D(){
 		}
 		
 	}
-	if(a==2){
+	else if(a==2){
 		xuli3D();
 	}
-	if(a==3) return;
+	else if(a==3) {
+		return;
+	}
 }
 void getMouseClick(){
 	int x, y;        // Coordinates of the mouse click
@@ -1230,9 +1265,6 @@ void getMouseClick(){
     while (1)
 
     {
-		
-        
-		
 	    if(x > 50 && x < 200 && y > 20 && y <60){ //xua li 2d
 	    	setcolor(1);
 	    	setbkcolor(15);
