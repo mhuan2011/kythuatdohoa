@@ -1088,21 +1088,21 @@ void normal(){
 	setbkcolor(bgColor);
 	setcolor(color);
 }
-//void xoayToaDo(int xb, int yb, int xo, int yo, int goc, int color){
-//
-//	string s = "(" + to_string(xb) + "," + to_string(yb) + ")";
-//	char * text = stringToChar(s);
-//	setbkcolor(0);
-//	setcolor(0);
-//	outtextxy(xb, yb, text);
-//	rotate_point(xb, yb, xo, yo, goc);
-//	s = "(" + to_string(xb) + "," + to_string(yb) + ")";
-//	text = stringToChar(s);
-//	normal();
-//	outtextxy(xb, yb, text);
-//	
-//	delete [] text;
-//}
+void xoayToaDo(int xb, int yb, int xo, int yo, int goc, int color){
+
+	string s = "(" + to_string(xb) + "," + to_string(yb) + ")";
+	char * text = stringToChar(s);
+	setbkcolor(0);
+	setcolor(0);
+	outtextxy(xb, yb, text);
+	rotate_point(xb, yb, xo, yo, goc);
+	s = "(" + to_string(xb) + "," + to_string(yb) + ")";
+	text = stringToChar(s);
+	normal();
+	outtextxy(xb, yb, text);
+	
+	delete [] text;
+}
 void veHCN(int x, int y, int cao,int color){
 	setbkcolor(0);
 	setcolor(color);
@@ -1193,7 +1193,7 @@ int coiXoayGio(){
 		drawcircle(xo, yo, banKinh, color);
 		xoayDuongThang(xa1, ya1, xb1, yb1, xo, yo, goc, color);
 		xoayDuongThang(xa2, ya2, xb2, yb2, xo, yo, goc, color);
-		//xoayToaDo(xbr, ybr, xo, yo, goc, color);
+		xoayToaDo(xbr, ybr, xo, yo, goc, color);
 		xoayTamGiac(xar, yar, xbr, ybr, xcr, ycr, xo, yo, goc, color);
 		xoayTamGiac(xal, yal, xbl, ybl, xcl, ycl, xo, yo, goc, color);
 		xoayTamGiac(xat, yat, xbt, ybt, xct, yct, xo, yo, goc, color);
