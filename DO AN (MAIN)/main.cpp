@@ -438,6 +438,7 @@ void v_veTrucOxyz(){
 	//ve truc toa do
     v_lineDDA(450, 400, 800, 400, color);//x
     v_lineDDA(450, 400, 270, 530, color);//z
+//	v_lineDDA(450, 400, 320, 530, color);
     v_lineDDA(450, 400, 450, 100, color);//y
     
     //ve mui ten
@@ -577,6 +578,7 @@ int v_nhapDuLieu(){ //phan ve hinh hop
 					setfillstyle(1, 0);
 					bar(250,0,890,590);
 					v_veTrucOxyz();
+					chonHinh(1);
 					return 2;
 				}
 				//nut hinh cau
@@ -624,7 +626,8 @@ int v_nhapDuLieu(){ //phan ve hinh hop
 						outtextxy(x, y, cstr);
 						x+=15;
 						if(check > 5){
-							v_hinhHopCN((kichThuoc[0] - kichThuoc[2])*5 + 450, 400 - (kichThuoc[1] - kichThuoc[2])*5, kichThuoc[3], kichThuoc[4], kichThuoc[5]);
+//							v_hinhHopCN((kichThuoc[0] - kichThuoc[2])*5 + 450, 400 - (kichThuoc[1] - kichThuoc[2])*5, kichThuoc[3], kichThuoc[4], kichThuoc[5]);
+							v_hinhHopCN((kichThuoc[0])*5 - kichThuoc[2]*4 + 450, 400 - (kichThuoc[1])*5 + kichThuoc[2]*3, kichThuoc[3], kichThuoc[4], kichThuoc[5]);
 							//v_hinhChopVuong(kichThuoc[0]*5 + 450, kichThuoc[1]*5 + 400, kichThuoc[2], kichThuoc[3], kichThuoc[4]);
 							return 2;
 						}
@@ -889,7 +892,7 @@ int l_nhapDuLieu(){
 						outtextxy(x, y, a);
 						x+=15;
 						if(check > 3){
-							drawSphere((kichThuoc[0] - kichThuoc[2])*5 + 450, 400 - (kichThuoc[1] - kichThuoc[2])*5, kichThuoc[3] * 5, 2);
+							drawSphere((kichThuoc[0])*5 - kichThuoc[2]*4 + 450, 400 - (kichThuoc[1])*5 + kichThuoc[2]*3, kichThuoc[3] * 5, 2);
 							//v_hinhChopVuong(kichThuoc[0]*5 + 450, kichThuoc[1]*5 + 400, kichThuoc[2], kichThuoc[3], kichThuoc[4]);
 							return 2;
 							
