@@ -14,6 +14,45 @@ int color = 1;
 void inToaDo(int xb, int yb, int color);
 char* stringToChar(string s);
 void veHCN(int x,int y, int cao,int color);
+void put5x5pixel(int x,int y,int color);
+void n_line(int x1, int y1, int x2, int y2);
+void n_rectangle(int x1,int y1,int x2,int y2){
+	n_line(x1,y1,x2,y1);
+	n_line(x1,y1,x1,y2);
+	n_line(x1,y2,x2,y2);
+	n_line(x2,y1,x2,y2);
+}
+void n_drawcircle(int x0, int y0, int radius,int color)
+{
+    int x = radius;
+    int y = 0;
+    int err = 0;
+ 
+    while (x >= y)
+    {
+	put5x5pixel((x0 + x)/5, (y0 + y)/5, color);
+	put5x5pixel((x0 + y)/5, (y0 + x)/5, color);
+	put5x5pixel((x0 - y)/5, (y0 + x)/5, color);
+	put5x5pixel((x0 - x)/5, (y0 + y)/5, color);
+	put5x5pixel((x0 - x)/5, (y0 - y)/5, color);
+	put5x5pixel((x0 - y)/5, (y0 - x)/5, color);
+	put5x5pixel((x0 + y)/5, (y0 - x)/5, color);
+	put5x5pixel((x0 + x)/5, (y0 - y)/5, color);
+ 
+	if (err <= 0)
+	{
+	    y += 1;
+	    err += 2*y + 1;
+	}
+ 
+	if (err > 0)
+	{
+	    x -= 1;
+	    err -= 2*x + 1;
+	}
+    }
+}
+
 void Loang(int x,int y, int mauto,int maubien){
 	int mauHienTai=getpixel(x,y);
 	if(mauHienTai!=mauto && mauHienTai!=maubien){
@@ -60,78 +99,90 @@ void chonNguCanh(int x){
 	
 }
 void MayBay(float x,float y,float a,float b){
+	int color=getcolor();
+	setcolor(15);
 	//--------may bay
-		line(x*80+a,y*300+b,x*250+a,y*300+b);
-		line(x*150+a,y*340+b,x*200+a,y*340+b);
-		line(x*150+a,y*340+b,x*100+a,y*400+b);
-		line(x*200+a,y*340+b,x*100+a,y*400+b);
-		line(x*80+a,y*380+b,x*115+a,y*380+b);
-		line(x*132+a,y*380+b,x*250+a,y*380+b);
-		ellipse(x*250+a,y*340+b,270,90,x*80,y*40);
-		line(x*100+a,y*270+b,x*150+a,y*300+b);
-		line(x*100+a,y*270+b,x*200+a,y*300+b);
-		line(x*80+a,y*300+b,x*65+a,y*260+b);
-		arc(x*80+a,y*340+b,180,270,((x+y)/2)*40);
-		line(x*40+a,y*340+b,x*40+a,y*260+b);
-		line(x*40+a,y*260+b,x*65+a,y*260+b);
-		line(x*261+a,y*333+b,x*320+a,y*333+b);
-		line(x*261+a,y*333+b,x*261+a,y*310+b);
-		rectangle(x*100+a,y*310+b,x*120+a,y*330+b);
-		rectangle(x*130+a,y*310+b,x*150+a,y*330+b);
-		rectangle(x*160+a,y*310+b,x*180+a,y*330+b);
-		rectangle(x*190+a,y*310+b,x*210+a,y*330+b);
-		rectangle(x*220+a,y*310+b,x*240+a,y*330+b);
+		n_line((x*80+a)/5,(y*300+b)/5,(x*250+a)/5,(y*300+b)/5);
+		n_line((x*150+a)/5,(y*340+b)/5,(x*200+a)/5,(y*340+b)/5);
+		n_line((x*150+a)/5,(y*340+b)/5,(x*100+a)/5,(y*400+b)/5);
+		n_line((x*200+a)/5,(y*340+b)/5,(x*100+a)/5,(y*400+b)/5);
+		n_line((x*80+a)/5,(y*380+b)/5,(x*115+a)/5,(y*380+b)/5);
+		n_line((x*132+a)/5,(y*380+b)/5,(x*250+a)/5,(y*380+b)/5);
+		//ellipse(x*250+a,y*340+b,270,90,x*80,y*40);
+		n_line((x*250+a)/5,(y*340+b-y*40)/5,(x*250+a+x*80)/5,(y*340+b)/5);
+		n_line((x*250+a)/5,(y*340+b+y*40)/5,(x*250+a+x*80)/5,(y*340+b)/5);
 		
+		n_line((x*100+a)/5,(y*270+b)/5,(x*150+a)/5,(y*300+b)/5);
+		n_line((x*100+a)/5,(y*270+b)/5,(x*200+a)/5,(y*300+b)/5);
+		n_line((x*80+a)/5,(y*300+b)/5,(x*65+a)/5,(y*260+b)/5);
+		//arc(x*80+a,y*340+b,180,270,((x+y)/2)*40);
+		//n_drawcircle((x*80+a)/5,(y*340+b)/5,((x+y)/2)*40/5,1);
+		n_line((x*40+a)/5,(y*340+b)/5,(x*40+a)/5,(y*260+b)/5);
+		n_line((x*40+a)/5,(y*260+b)/5,(x*65+a)/5,(y*260+b)/5);
+		n_line((x*261+a)/5,(y*333+b)/5,(x*320+a)/5,(y*333+b)/5);
+		n_line((x*261+a)/5,(y*333+b)/5,(x*261+a)/5,(y*310+b)/5);
+		n_rectangle((x*100+a)/5,(y*310+b)/5,(x*120+a)/5,(y*330+b)/5);
+		n_rectangle((x*130+a)/5,(y*310+b)/5,(x*150+a)/5,(y*330+b)/5);
+		n_rectangle((x*160+a)/5,(y*310+b)/5,(x*180+a)/5,(y*330+b)/5);
+		n_rectangle((x*190+a)/5,(y*310+b)/5,(x*210+a)/5,(y*330+b)/5);
+		n_rectangle((x*220+a)/5,(y*310+b)/5,(x*240+a)/5,(y*330+b)/5);
+	setcolor(color);
 }
 void MayBayNguoc(float x,float y,float a,float b){
+	int color=getcolor();
+	setcolor(15);
 	//--------may bay
-		line(x*80+a,y*300+b,x*250+a,y*300+b);
-		line(x*150+a,y*340+b,x*200+a,y*340+b);
-		line(x*150+a,y*340+b,x*100+a,y*400+b);
-		line(x*200+a,y*340+b,x*100+a,y*400+b);
-		line(x*80+a,y*380+b,x*115+a,y*380+b);
-		line(x*132+a,y*380+b,x*250+a,y*380+b);
-		ellipse(x*250+a,y*340+b,90,270,x*80,y*40);
-		line(x*100+a,y*270+b,x*150+a,y*300+b);
-		line(x*100+a,y*270+b,x*200+a,y*300+b);
-		line(x*80+a,y*300+b,x*65+a,y*260+b);
-		arc(x*80+a,y*340+b,270,360,y*40);
-		line(x*40+a,y*340+b,x*40+a,y*260+b);
-		line(x*40+a,y*260+b,x*65+a,y*260+b);
-		line(x*261+a,y*333+b,x*320+a,y*333+b);
-		line(x*261+a,y*333+b,x*261+a,y*310+b);
-		rectangle(x*100+a,y*310+b,x*120+a,y*330+b);
-		rectangle(x*130+a,y*310+b,x*150+a,y*330+b);
-		rectangle(x*160+a,y*310+b,x*180+a,y*330+b);
-		rectangle(x*190+a,y*310+b,x*210+a,y*330+b);
-		rectangle(x*220+a,y*310+b,x*240+a,y*330+b);
+		n_line((x*80+a)/5,(y*300+b)/5,(x*250+a)/5,(y*300+b)/5);
+		n_line((x*150+a)/5,(y*340+b)/5,(x*200+a)/5,(y*340+b)/5);
+		n_line((x*150+a)/5,(y*340+b)/5,(x*100+a)/5,(y*400+b)/5);
+		n_line((x*200+a)/5,(y*340+b)/5,(x*100+a)/5,(y*400+b)/5);
+		n_line((x*80+a)/5,(y*380+b)/5,(x*115+a)/5,(y*380+b)/5);
+		n_line((x*132+a)/5,(y*380+b)/5,(x*250+a)/5,(y*380+b)/5);
+		//ellipse(x*250+a,y*340+b,90,270,x*80,y*40);
+		n_line((x*250+a)/5,(y*340+b-y*40)/5,(x*250+a+x*80)/5,(y*340+b)/5);
+		n_line((x*250+a)/5,(y*340+b+y*40)/5,(x*250+a+x*80)/5,(y*340+b)/5);
+		
+		n_line((x*100+a)/5,(y*270+b)/5,(x*150+a)/5,(y*300+b)/5);
+		n_line((x*100+a)/5,(y*270+b)/5,(x*200+a)/5,(y*300+b)/5);
+		n_line((x*80+a)/5,(y*300+b)/5,(x*65+a)/5,(y*260+b)/5);
+		//arc(x*80+a,y*340+b,270,360,y*40);
+		n_line((x*40+a)/5,(y*340+b)/5,(x*40+a)/5,(y*260+b)/5);
+		n_line((x*40+a)/5,(y*260+b)/5,(x*65+a)/5,(y*260+b)/5);
+		n_line((x*261+a)/5,(y*333+b)/5,(x*320+a)/5,(y*333+b)/5);
+		n_line((x*261+a)/5,(y*333+b)/5,(x*261+a)/5,(y*310+b)/5);
+		n_rectangle((x*100+a)/5,(y*310+b)/5,(x*120+a)/5,(y*330+b)/5);
+		n_rectangle((x*130+a)/5,(y*310+b)/5,(x*150+a)/5,(y*330+b)/5);
+		n_rectangle((x*160+a)/5,(y*310+b)/5,(x*180+a)/5,(y*330+b)/5);
+		n_rectangle((x*190+a)/5,(y*310+b)/5,(x*210+a)/5,(y*330+b)/5);
+		n_rectangle((x*220+a)/5,(y*310+b)/5,(x*240+a)/5,(y*330+b)/5);
 		
 		
 		int x1=x*100+a+20;
 		int y1=y*310+b;
 		inToaDo(x1,y1,15);
+	setcolor(color);
 }
 void Nha(int i,int y){
-	rectangle(520-i,459-y,560-i,430-y);
-	rectangle(560-i,459-y,620-i,430-y);
+	n_rectangle((520-i)/5,(459-y)/5,(560-i)/5,(430-y)/5);
+	n_rectangle((560-i)/5,(459-y)/5,(620-i)/5,(430-y)/5);
 	
 	
-	rectangle(440-i,430-y,500-i,459-y);
-	rectangle(400-i,430-y,440-i,459-y);
+	n_rectangle((440-i)/5,(430-y)/5,(500-i)/5,(459-y)/5);
+	n_rectangle((400-i)/5,(430-y)/5,(440-i)/5,(459-y)/5);
 	
 }
 void NocNha(int i,int y){
 	int color=getcolor();
 	setcolor(12);
-	line(540-i,410-y,560-i,430-y);
-	line(540-i,410-y,520-i,430-y);
-	line(600-i,410-y,620-i,430-y);
-	line(600-i,410-y,540-i,410-y);
+	n_line((540-i)/5,(410-y)/5,(560-i)/5,(430-y)/5);
+	n_line((540-i)/5,(410-y)/5,(520-i)/5,(430-y)/5);
+	n_line((600-i)/5,(410-y)/5,(620-i)/5,(430-y)/5);
+	n_line((600-i)/5,(410-y)/5,(540-i)/5,(410-y)/5);
 	
-	line(420-i,410-y,440-i,430-y);
-	line(420-i,410-y,400-i,430-y);
-	line(420-i,410-y,480-i,410-y);
-	line(480-i,410-y,500-i,430-y);
+	n_line((420-i)/5,(410-y)/5,(440-i)/5,(430-y)/5);
+	n_line((420-i)/5,(410-y)/5,(400-i)/5,(430-y)/5);
+	n_line((420-i)/5,(410-y)/5,(480-i)/5,(410-y)/5);
+	n_line((480-i)/5,(410-y)/5,(500-i)/5,(430-y)/5);
 	setcolor(color);
 }
 int veMayBay(){
@@ -177,12 +228,14 @@ int veMayBay(){
 		MayBayNguoc(-x,y,c,80);
 		setcolor(9); //huan
 		Nha(xnha,ynha);
+		setcolor(12);
 		NocNha(xnocnha,ynocnha);
 		setcolor(10); //huan
-		line(250,459,800,459);
+		//mat dat
+		n_line(250/5+5,459/5,800/5,459/5);
 		
 		setcolor(15);
-		circle(xbom,ybom,rbom);
+		n_drawcircle(xbom,ybom,rbom,12);
 		if(ybom<460){
 			inToaDo(xbom+10,ybom,15);
 		}
@@ -193,8 +246,11 @@ int veMayBay(){
 		if(ybom==460){
 			ybom-=2;
 			rbom+=5;
-			circle(xbom,ybom,rbom);
-			Loang(xbom,458,12,15);
+			n_drawcircle(xbom,ybom,rbom,12);
+			//Loang(xbom/50,458/50,15,12);
+			for(int i=0;i<rbom;i++){
+				n_drawcircle(xbom,ybom,i,12);
+			}
 			ynha+=2;
 			ynocnha+=4;
 		}
@@ -210,6 +266,26 @@ int veMayBay(){
 		
 	}
 	return 2;
+}
+void n_line(int x1, int y1, int x2, int y2){       // thuat toan DDA
+    int color=getcolor();
+	int  Dx = x2 - x1, Dy = y2 - y1;  
+    float x_inc , y_inc;
+    float step=max(abs(Dx),abs(Dy));
+    x_inc=Dx/step;
+    y_inc=Dy/step;
+    float x=x1, y=y1;
+    put5x5pixel(x, y, color);
+      
+    int k=1;
+    int m = 0;
+    while(k <=step){
+    	k++;
+    	x += x_inc;
+	    y += y_inc;		
+	    m++;           
+	    put5x5pixel(Round(x),Round(y),color);
+    }
 }
 void giaoDien(){
 
