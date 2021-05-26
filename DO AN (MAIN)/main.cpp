@@ -510,22 +510,22 @@ void v_veTrucOxyz(){
 	outtextxy(470, 100, "y");
 	outtextxy(275, 535, "z");
 	
-	//cham diem pixel
-	//truc Oy
-	for (int i = 105; i<400; i++){
-		if(i%25 == 0){
-			putpixel1(450, i, 15);
-		}
-	}
-	//truc Ox
-	v_lineDDA1(450, 400, 800, 400, 15);
-	//truc Oz
-	v_lineDDAOz(450, 400, 270, 530, 15);
+//	//cham diem pixel
+//	//truc Oy
+//	for (int i = 105; i<400; i++){
+//		if(i%25 == 0){
+//			putpixel1(450, i, 15);
+//		}
+//	}
+//	//truc Ox
+//	v_lineDDA1(450, 400, 800, 400, 15);
+//	//truc Oz
+//	v_lineDDAOz(450, 400, 270, 530, 15);
 }
 
 //1.5. Ve hinh hop chu nhat
 void v_hinhHopCN(int x, int y, int CD, int CR, int CC){
-	int dai = Round(CD*25/2), rong = CR*25, cao = CC*25;
+	int dai = Round(CD*5/2), rong = CR*5, cao = CC*5;
 	
 	//HCM mat sau
 	v_lineDDA3(x, y, x, y - cao, 2);
@@ -640,7 +640,7 @@ int v_nhapDuLieu(){ //phan ve hinh hop
 						outtextxy(x, y, cstr);
 						x+=15;
 						if(check > 5){
-							v_hinhHopCN((kichThuoc[0] - kichThuoc[2])*25 + 450, 400 - (kichThuoc[1] - kichThuoc[2])*25, kichThuoc[3], kichThuoc[4], kichThuoc[5]);
+							v_hinhHopCN((kichThuoc[0])*5 - kichThuoc[2]*4 + 450, 400 - (kichThuoc[1])*5 + kichThuoc[2]*3, kichThuoc[3], kichThuoc[4], kichThuoc[5]);
 							delay(3000);
 							return 2;
 						}
@@ -660,14 +660,16 @@ void elipMidpoint(int xc,int yc, int a, int b, int color)
     b2 = b*b;
     fx = 0;
     fy = 2 * a2 * y;
-    putpixel(xc+x, yc-y, color);
-    putpixel(xc-x, yc-y, color);
-    putpixel(xc+x, yc+y, color);
-    putpixel(xc-x, yc+y, color);
+    putpixel1(xc+x, yc-y, color);
+    putpixel1(xc-x, yc-y, color);
+    putpixel1(xc+x, yc+y, color);
+    putpixel1(xc-x, yc+y, color);
     p = Round(b2 -(a2*b) + (0.25*a2));//p=b2 - a2*b +a2/4
     int dem = 0;
+    int draw = 0;
     while(fx<fy)
     {
+		draw ++;
 		x++;
         fx += 2*b2;
         delay(5);
@@ -681,6 +683,8 @@ void elipMidpoint(int xc,int yc, int a, int b, int color)
             p += b2*(2*x +3) + a2*(2- 2*y);//p=p +b2(2x +3) +a2(2-2y)
             fy -= 2*a2;
         }
+		if (draw == 5){
+			draw = 0;
 		if(dem == 5){
 			dem = 0;
 		}
@@ -688,17 +692,18 @@ void elipMidpoint(int xc,int yc, int a, int b, int color)
 			dem++;
 		}
 		else{
-		putpixel(xc+x, yc-y, color);
-    	putpixel(xc-x, yc-y, color);
+		putpixel1(xc+x, yc-y, color);
+    	putpixel1(xc-x, yc-y, color);
     	dem++;
 		}
-		putpixel(xc+x, yc+y, color);
-    	putpixel(xc-x, yc+y, color);		
+		putpixel1(xc+x, yc+y, color);
+    	putpixel1(xc-x, yc+y, color);}		
     }
     p = Round(b2*(x +0.5)*(x +0.5) + a2*(y-1)*(y-1) - a2*b2);
     //
     while(y>0)
     {
+    	draw ++;
         y--;
         fy -= 2*a2;
         delay(5);
@@ -712,19 +717,21 @@ void elipMidpoint(int xc,int yc, int a, int b, int color)
             fx += 2*b2;
             p += b2*(2*x +2) +a2*(3- 2*y);//p=p+ b2(2x +2) + a2(3-2y)
         }
-        if(dem == 5){
+        if (draw == 5){
+			draw = 0;
+		if(dem == 5){
 			dem = 0;
 		}
 		else if((dem == 3) || (dem == 4)){
 			dem++;
 		}
 		else{
-		putpixel(xc+x, yc-y, color);
-    	putpixel(xc-x, yc-y, color);
+		putpixel1(xc+x, yc-y, color);
+    	putpixel1(xc-x, yc-y, color);
     	dem++;
 		}
-		putpixel(xc+x, yc+y, color);
-    	putpixel(xc-x, yc+y, color);
+		putpixel1(xc+x, yc+y, color);
+    	putpixel1(xc-x, yc+y, color);}
     }
 }
 //2.2. Ve elip nam doc
@@ -737,14 +744,16 @@ void elipMidpointDoc(int xc,int yc, int a, int b, int color)
     b2 = b*b;
     fx = 0;
     fy = 2 * a2 * y;
-    putpixel(xc+x, yc-y, color);
-    putpixel(xc-x, yc-y, color);
-    putpixel(xc+x, yc+y, color);
-    putpixel(xc-x, yc+y, color);
+    putpixel1(xc+x, yc-y, color);
+    putpixel1(xc-x, yc-y, color);
+    putpixel1(xc+x, yc+y, color);
+    putpixel1(xc-x, yc+y, color);
     p = Round(b2 -(a2*b) + (0.25*a2));//p=b2 - a2*b +a2/4
-    int dem = 0;
+    int draw = 0;
+	int dem = 0;
     while(fx<fy)
     {
+		draw ++ ;
 		x++;
         fx += 2*b2;
         delay(5);
@@ -758,6 +767,8 @@ void elipMidpointDoc(int xc,int yc, int a, int b, int color)
             p += b2*(2*x +3) + a2*(2- 2*y);//p=p +b2(2x +3) +a2(2-2y)
             fy -= 2*a2;
         }
+		if (draw == 5){
+			draw = 0;
 		if(dem == 5){
 			dem = 0;
 		}
@@ -765,18 +776,19 @@ void elipMidpointDoc(int xc,int yc, int a, int b, int color)
 			dem++;
 		}
 		else{
-		putpixel(xc+x, yc+y, color);
-    	putpixel(xc+x, yc-y, color);
+		putpixel1(xc+x, yc+y, color);
+    	putpixel1(xc+x, yc-y, color);
     	dem++;
 		}
-		putpixel(xc-x, yc+y, color);
-    	putpixel(xc-x, yc-y, color);	
+		putpixel1(xc-x, yc+y, color);
+    	putpixel1(xc-x, yc-y, color);}	
     }
     p = Round(b2*(x +0.5)*(x +0.5) + a2*(y-1)*(y-1) - a2*b2);
     //
     while(y>0)
     {
-        y--;
+        draw ++;
+		y--;
         fy -= 2*a2;
         delay(5);
         if(p >=0)
@@ -789,19 +801,21 @@ void elipMidpointDoc(int xc,int yc, int a, int b, int color)
             fx += 2*b2;
             p += b2*(2*x +2) +a2*(3- 2*y);//p=p+ b2(2x +2) + a2(3-2y)
         }
-        if(dem == 5){
+        if (draw == 5){
+			draw = 0;
+		if(dem == 5){
 			dem = 0;
 		}
 		else if((dem == 3) || (dem == 4)){
 			dem++;
 		}
 		else{
-		putpixel(xc+x, yc+y, color);
-    	putpixel(xc+x, yc-y, color);
+		putpixel1(xc+x, yc+y, color);
+    	putpixel1(xc+x, yc-y, color);
     	dem++;
 		}
-		putpixel(xc-x, yc+y, color);
-    	putpixel(xc-x, yc-y, color);
+		putpixel1(xc-x, yc+y, color);
+    	putpixel1(xc-x, yc-y, color);}
     }
 }
 //2.3. Ve hinh tron
@@ -809,20 +823,20 @@ void drawCircleMidpoint(int xc, int yc, int r, int color)
 {
     int x = 0, y = r;
     int f = 1 - r;
-
-    putpixel(x + xc, y + yc, color);
-    putpixel(-x + xc, y + yc, color);
-    putpixel(x + xc, -y + yc, color);
-    putpixel(-x + xc, -y + yc, color);
-    putpixel( y + xc, x + yc, color);
-    putpixel(-y + xc, x + yc, color);
-    putpixel(y + xc, -x + yc, color);
-    putpixel(-y + xc, -x + yc, color);
+	int draw = 0;
+    putpixel1(x + xc, y + yc, color);
+    putpixel1(-x + xc, y + yc, color);
+    putpixel1(x + xc, -y + yc, color);
+    putpixel1(-x + xc, -y + yc, color);
+    putpixel1( y + xc, x + yc, color);
+    putpixel1(-y + xc, x + yc, color);
+    putpixel1(y + xc, -x + yc, color);
+    putpixel1(-y + xc, -x + yc, color);
 
     while (x < y)
     {
     	
-    	
+    	draw ++;
         delay(5);
 		if (f < 0) f += (x << 1) + 3;
         else
@@ -831,14 +845,16 @@ void drawCircleMidpoint(int xc, int yc, int r, int color)
             f += ((x - y) << 1) + 5;
         }
         x++;
-	    putpixel(x + xc, y + yc, color);
-	    putpixel(-x + xc, y + yc, color);
-	    putpixel(x + xc, -y + yc, color);
-	    putpixel(-x + xc, -y + yc, color);
-	    putpixel( y + xc, x + yc, color);
-	    putpixel(-y + xc, x + yc, color);
-	    putpixel(y + xc, -x + yc, color);
-	    putpixel(-y + xc, -x + yc, color);
+	    if (draw == 5){
+			draw = 0;
+		putpixel1(x + xc, y + yc, color);
+	    putpixel1(-x + xc, y + yc, color);
+	    putpixel1(x + xc, -y + yc, color);
+	    putpixel1(-x + xc, -y + yc, color);
+	    putpixel1( y + xc, x + yc, color);
+	    putpixel1(-y + xc, x + yc, color);
+	    putpixel1(y + xc, -x + yc, color);
+	    putpixel1(-y + xc, -x + yc, color);}
 	}
 }
 //2.4. Ve hinh cau
