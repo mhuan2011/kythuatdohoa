@@ -967,6 +967,37 @@ int tiemKich(){
 }
 // Hien ve coi xoay gio
 // ve hinh tron tam cua canh quat
+void put5x5pixel(int x,int y,int color){
+	setcolor(color);
+	x=x*5;
+	y=y*5;
+	int x1=x-2;
+	int x2=x+2;
+	int y1=y-2;
+	int y2=y+2;
+	for(int i=0;i<5;i++){
+		line(x1,y1+i,x2,y1+i);
+	}
+}
+void lineDDA(int x1, int y1, int x2, int y2, int color){       // thuat toan DDA
+    int  Dx = x2 - x1, Dy = y2 - y1;  
+    float x_inc , y_inc;
+    float step=max(abs(Dx),abs(Dy));
+    x_inc=Dx/step;
+    y_inc=Dy/step;
+    float x=x1, y=y1;
+    put5x5pixel(x, y, color);
+      
+    int k=1;
+    int m = 0;
+    while(k <=step){
+    	k++;
+    	x += x_inc;
+	    y += y_inc;		
+	    m++;           
+	    put5x5pixel(Round(x),Round(y),color);
+}
+}
 void drawcircle(int x0, int y0, int radius,int color)
 {
     int x = radius;
@@ -975,14 +1006,14 @@ void drawcircle(int x0, int y0, int radius,int color)
  
     while (x >= y)
     {
-	putpixel(x0 + x, y0 + y, color);
-	putpixel(x0 + y, y0 + x, color);
-	putpixel(x0 - y, y0 + x, color);
-	putpixel(x0 - x, y0 + y, color);
-	putpixel(x0 - x, y0 - y, color);
-	putpixel(x0 - y, y0 - x, color);
-	putpixel(x0 + y, y0 - x, color);
-	putpixel(x0 + x, y0 - y, color);
+	put5x5pixel(x0 + x, y0 + y, color);
+	put5x5pixel(x0 + y, y0 + x, color);
+	put5x5pixel(x0 - y, y0 + x, color);
+	put5x5pixel(x0 - x, y0 + y, color);
+	put5x5pixel(x0 - x, y0 - y, color);
+	put5x5pixel(x0 - y, y0 - x, color);
+	put5x5pixel(x0 + y, y0 - x, color);
+	put5x5pixel(x0 + x, y0 - y, color);
  
 	if (err <= 0)
 	{
@@ -1020,24 +1051,24 @@ void rotate_point(int &x1,int &y1,int cx,int cy,float angle)
 	y1=Round(ynew);
 }
 // ve duong thang bang thuat toan dda
-void lineDDA(int x1, int y1, int x2, int y2, int color){       // thuat toan DDA
-    int  Dx = x2 - x1, Dy = y2 - y1;  
-    float x_inc , y_inc;
-    float step=max(abs(Dx),abs(Dy));
-    x_inc=Dx/step;
-    y_inc=Dy/step;
-    float x=x1, y=y1;
-    putpixel(x, y, color);
-      
-    int k=1;
-    while(k <=step){
-    	k++;
-    	x += x_inc;
-	    y += y_inc;           
-	        putpixel(Round(x),Round(y),color);
-		
-    }
-}
+//void lineDDA(int x1, int y1, int x2, int y2, int color){       // thuat toan DDA
+//    int  Dx = x2 - x1, Dy = y2 - y1;  
+//    float x_inc , y_inc;
+//    float step=max(abs(Dx),abs(Dy));
+//    x_inc=Dx/step;
+//    y_inc=Dy/step;
+//    float x=x1, y=y1;
+//    putpixel(x, y, color);
+//      
+//    int k=1;
+//    while(k <=step){
+//    	k++;
+//    	x += x_inc;
+//	    y += y_inc;           
+//	        putpixel(Round(x),Round(y),color);
+//		
+//    }
+//}
 // ve tam giac can de ve canh quat
 void veTamGiacCan(int xa, int ya, int xb, int yb, int xc, int yc, int color){
 	lineDDA(xa, ya, xb, yb, color);
@@ -1156,17 +1187,17 @@ void inToaDo(int xb, int yb, int color){
 	delete [] text;
 }
 void xoayToaDo(int xb, int yb, int xo, int yo, int goc, int color){
-
+	
 	string s = "(" + to_string(xb) + "," + to_string(yb) + ")";
 	char * text = stringToChar(s);
 	setbkcolor(0);
 	setcolor(0);
-	outtextxy(xb, yb, text);
+	outtextxy(xb*5, yb*5, text);
 	rotate_point(xb, yb, xo, yo, goc);
 	s = "(" + to_string(xb) + "," + to_string(yb) + ")";
 	text = stringToChar(s);
 	normal();
-	outtextxy(xb, yb, text);
+	outtextxy(xb*5, yb*5, text);
 	delete [] text;
 }
 void veHCN(int x, int y, int cao,int color){
@@ -1182,14 +1213,14 @@ void veHCN(int x, int y, int cao,int color){
 
 int coiXoayGio(){
 	xoaKhungChiTiet();
-		int banKinh = 20;
+		int banKinh = 4;
 	
 	// xo, yo la tam cua canh quat
 	int color = 15;
-	int goc = 5;
-	int xo=550, yo=300;
-	int chieuDaiCanh = 30;
-	int chieuCaoThan = 150;
+	int goc = 10;
+	int xo=100, yo=70;
+	int chieuDaiCanh = 6;
+	int chieuCaoThan = 30;
 	//duong thang ngang
 	int xa1 = xo;
 	int ya1 = yo-chieuDaiCanh;
