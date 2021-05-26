@@ -496,8 +496,8 @@ void v_veTrucOxyz(){
     
     //ve mui ten
     //truc Oz
-    v_lineDDAforOxyz(300, 550, 295, 540, color);
-    v_lineDDAforOxyz(300, 550, 320, 545, color);
+    v_lineDDAforOxyz(300, 550, 300, 530, color);
+    v_lineDDAforOxyz(300, 550, 320, 550, color);
     //truc Ox
     v_lineDDAforOxyz(800, 400, 785, 385, color);
     v_lineDDAforOxyz(800, 400, 785, 415, color);
@@ -525,7 +525,7 @@ void v_veTrucOxyz(){
 
 //1.5. Ve hinh hop chu nhat
 void v_hinhHopCN(int x, int y, int CD, int CR, int CC){
-	int dai = Round(CD*5/2), rong = CR*5, cao = CC*5;
+	int dai = Round(CD*25/2), rong = CR*25, cao = CC*25;
 	
 	//HCM mat sau
 	v_lineDDA3(x, y, x, y - cao, 2);
@@ -537,7 +537,7 @@ void v_hinhHopCN(int x, int y, int CD, int CR, int CC){
 	toaDoDiem a;
 	int tmpX = 450;
 	int tmpY = 400;
-	a = v_lineDDA2(450, 400, 270, 530, dai, 2);
+	a = v_lineDDA2(450, 400, 300, 550, dai, 2);
 	if(x > tmpX || x < tmpX){
 		tmpX = x - tmpX;
 	}
@@ -640,7 +640,7 @@ int v_nhapDuLieu(){ //phan ve hinh hop
 						outtextxy(x, y, cstr);
 						x+=15;
 						if(check > 5){
-							v_hinhHopCN((kichThuoc[0] - kichThuoc[2]*(sqrt(2)/2))*5 + 450, 400 - (kichThuoc[1] - kichThuoc[2]*(sqrt(2)/2))*5, kichThuoc[3], kichThuoc[4], kichThuoc[5]);
+							v_hinhHopCN((kichThuoc[0] - kichThuoc[2]*(sqrt(2)/2))*25 + 450, 400 - (kichThuoc[1] - kichThuoc[2]*(sqrt(2)/2))*25, kichThuoc[3], kichThuoc[4], kichThuoc[5]);
 							delay(3000);
 							return 2;
 						}
