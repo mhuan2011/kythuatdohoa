@@ -497,7 +497,7 @@ void v_veTrucOxyz(){
     //ve mui ten
     //truc Oz
     v_lineDDAforOxyz(300, 550, 295, 540, color);
-    v_lineDDAforOxyz(300, 550, 325, 540, color);
+    v_lineDDAforOxyz(300, 550, 320, 545, color);
     //truc Ox
     v_lineDDAforOxyz(800, 400, 785, 385, color);
     v_lineDDAforOxyz(800, 400, 785, 415, color);
