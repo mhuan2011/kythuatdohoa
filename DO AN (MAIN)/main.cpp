@@ -306,7 +306,7 @@ struct toaDo{
 typedef struct toaDo toaDoDiem;
 //1.1. Ve duong thang bang DDA
 //ve net lien
-void v_lineDDA(int x1, int y1, int x2, int y2, int color){       
+void v_lineDDAforOxyz(int x1, int y1, int x2, int y2, int color){ //duong thang ve oxyz  
     int  Dx = x2 - x1, Dy = y2 - y1;  
     float x_inc , y_inc;
     float step=max(abs(Dx),abs(Dy));
@@ -325,6 +325,45 @@ void v_lineDDA(int x1, int y1, int x2, int y2, int color){
     }
 }
 
+//ve diem pixe = 5
+void putpixel1(int x, int y, int color){
+	v_lineDDAforOxyz(x-2.5, y-2.5, x+2.5, y-2.5, color);
+	v_lineDDAforOxyz(x-2.5, y-2.5, x-2.5, y+2.5, color);
+	v_lineDDAforOxyz(x-2.5, y+2.5, x+2.5, y+2.5, color);
+	v_lineDDAforOxyz(x+2.5, y-2.5, x+2.5, y+2.5, color);
+	for(int i = 0; i<5; i++){
+		v_lineDDAforOxyz(x-2.5, y-2.5+i, x+2.5, y-2.5+i, color);
+		v_lineDDAforOxyz(x-2.5+i, y+2.5, x+2.5, y+2.5, color);
+	}
+
+}
+
+//ve duong thang bth
+void v_lineDDA(int x1, int y1, int x2, int y2, int color){       
+    int  Dx = x2 - x1, Dy = y2 - y1;  
+    float x_inc , y_inc;
+    float step=max(abs(Dx),abs(Dy));
+    x_inc=Dx/step;
+    y_inc=Dy/step;
+    float x=x1, y=y1;// Khoi tao cac gia tri ban dau
+    putpixel1(x, y, color);
+      
+    int k=1;
+    int dem = 0;
+    while(k <=step){
+        k++;
+        x += x_inc;
+        y += y_inc;
+        if (dem %5 == 0){
+        	putpixel1(Round(x),Round(y),color);
+		}
+		dem++;
+        
+         
+    }
+}
+
+
 //1.2. Ve cac pixel
 void v_lineDDA1(int x1, int y1, int x2, int y2, int color){       
     int  Dx = x2 - x1, Dy = y2 - y1;  
@@ -340,8 +379,8 @@ void v_lineDDA1(int x1, int y1, int x2, int y2, int color){
         k++;
         x += x_inc;
         y += y_inc;
-        if(dem % 5 == 0){
-        	putpixel(Round(x),Round(y),color);	
+        if(dem % 25 == 0){
+        	putpixel1(Round(x),Round(y),color);	
 		}
 		dem++;
     }
@@ -355,51 +394,66 @@ void v_lineDDAOz(int x1, int y1, int x2, int y2, int color){
     x_inc=Dx/step;
     y_inc=Dy/step;
     float x=x1, y=y1;// Khoi tao cac gia tri ban dau
-    putpixel(x, y, color);
+    putpixel1(x, y, color);
     int dem = 0;
     int k=1;
     while(k <=step){
         k++;
         x += x_inc;
         y += y_inc;
-        if(dem % 3 == 0){
-        	putpixel(Round(x),Round(y),color);	
+        if(dem % 13 == 0){
+        	putpixel1(Round(x),Round(y),color);	
 		}
 		dem++;
     }
 }
 
 //1.3. Ve net dut cho canh bi khuat
-void v_lineDDA3(int x1, int y1, int x2, int y2, int l, int color){       
-    int  Dx = x2 - x1, Dy = y2 - y1;  
-    float x_inc , y_inc;
-    float step=max(abs(Dx),abs(Dy));
-    x_inc=Dx/step;
-    y_inc=Dy/step;
-    float x=x1, y=y1;
-    putpixel(x, y, color);
-      
-    int k=1;
-    int m = 0;
-    while(k <=step){
-    	k++;
-    	x += x_inc;
-	    y += y_inc;
-    	if(m>l && m <(l+5)){
-    		m++;
-    		continue;
-		}
-		else if(m==(l+5)){
-			m=0;
-    		continue;
-		}
-		else {		
-	        m++;           
-	        putpixel(Round(x),Round(y),color);
-		}
-        
-         
-    }
+void v_lineDDA3(int x1, int y1, int x2, int y2, int color){       
+	int  Dx = x2 - x1, Dy = y2 - y1;  
+	    float x_inc , y_inc;
+	    float step=max(abs(Dx),abs(Dy));
+	    x_inc=Dx/step;
+	    y_inc=Dy/step;
+	    float x=x1, y=y1;// Khoi tao cac gia tri ban dau
+	    putpixel1(x, y, color);
+	    int dem = 0;
+	    int k=1;
+	    while(k <=step){
+	        k++;
+	        x += x_inc;
+	        y += y_inc;
+	        if(dem % 25 == 0){
+	        	putpixel1(Round(x),Round(y),color);	
+			}
+			dem++;
+	    }
+}
+
+//ve duong khuat tren truc oz
+void v_lineDDAKhuat(int x1, int y1, int x2, int y2, int color){       
+	int  Dx = x2 - x1, Dy = y2 - y1;  
+	    float x_inc , y_inc;
+	    float step=max(abs(Dx),abs(Dy));
+	    x_inc=Dx/step;
+	    y_inc=Dy/step;
+	    float x=x1, y=y1;// Khoi tao cac gia tri ban dau
+	    putpixel1(x, y, color);
+	    int dem = 0;
+	    int k=1;
+	    while(k <=step){
+	        k++;
+	        x += x_inc;
+	        y += y_inc;
+	        if (dem < 25){
+	        	dem ++ ;
+			}
+	        if(dem == 25){
+	        	putpixel1(Round(x),Round(y),color);	
+	        	dem = 0;
+			}
+			dem++;
+	    }
 }
 
 //
@@ -436,21 +490,20 @@ void v_veTrucOxyz(){
 	//Moi khoang cach la 5 pixel
 	
 	//ve truc toa do
-    v_lineDDA(450, 400, 800, 400, color);//x
-    v_lineDDA(450, 400, 270, 530, color);//z
-//	v_lineDDA(450, 400, 320, 530, color);
-    v_lineDDA(450, 400, 450, 100, color);//y
+    v_lineDDAforOxyz(450, 400, 800, 400, color);//x
+    v_lineDDAforOxyz(450, 400, 270, 530, color);//z
+    v_lineDDAforOxyz(450, 400, 450, 100, color);//y
     
     //ve mui ten
     //truc Oz
-    v_lineDDA(270, 530, 280, 510, color);
-    v_lineDDA(270, 530, 290, 530, color);
+    v_lineDDAforOxyz(270, 530, 280, 510, color);
+    v_lineDDAforOxyz(270, 530, 290, 530, color);
     //truc Ox
-    v_lineDDA(800, 400, 785, 385, color);
-    v_lineDDA(800, 400, 785, 415, color);
+    v_lineDDAforOxyz(800, 400, 785, 385, color);
+    v_lineDDAforOxyz(800, 400, 785, 415, color);
     //truc Oy
-    v_lineDDA(450, 100, 440, 120, color);
-    v_lineDDA(450, 100, 460, 120, color);
+    v_lineDDAforOxyz(450, 100, 440, 120, color);
+    v_lineDDAforOxyz(450, 100, 460, 120, color);
     
     //hien x, y, z
     outtextxy(805, 405, "x");
@@ -460,8 +513,8 @@ void v_veTrucOxyz(){
 	//cham diem pixel
 	//truc Oy
 	for (int i = 105; i<400; i++){
-		if(i%5 == 0){
-			putpixel(450, i, 15);
+		if(i%25 == 0){
+			putpixel1(450, i, 15);
 		}
 	}
 	//truc Ox
@@ -472,11 +525,11 @@ void v_veTrucOxyz(){
 
 //1.5. Ve hinh hop chu nhat
 void v_hinhHopCN(int x, int y, int CD, int CR, int CC){
-	int dai = Round(CD*5/2), rong = CR*5, cao = CC*5;
+	int dai = Round(CD*25/2), rong = CR*25, cao = CC*25;
 	
 	//HCM mat sau
-	v_lineDDA3(x, y, x, y - cao, 2, 2);
-	v_lineDDA3(x, y, x + rong, y, 2, 2);
+	v_lineDDA3(x, y, x, y - cao, 2);
+	v_lineDDA3(x, y, x + rong, y, 2);
 	v_lineDDA(x, y - cao, x + rong, y - cao, 2);
 	v_lineDDA(x + rong, y, x + rong, y - cao, 2);
 
@@ -508,50 +561,13 @@ void v_hinhHopCN(int x, int y, int CD, int CR, int CC){
 	v_lineDDA(a.x + rong, a.y - cao, a.x + rong, a.y, 2);
 	
 	//Noi 2 mat HCM
-	v_lineDDA3(x, y, a.x, a.y, 2, 2);
+	v_lineDDAKhuat(x, y, a.x, a.y,  2);
 	v_lineDDA(x + rong, y, a.x + rong, a.y, 2);
 	v_lineDDA(x, y - cao, a.x, a.y - cao, 2);
 	v_lineDDA(x + rong, y - cao, a.x + rong, a.y - cao, 2);	
-	
 }
 
-//1.6. Ve hinh chop vuong
-void v_hinhChopVuong(int x, int y, int CD, int CR, int CC){
-	int dai = Round(CD*5/2), rong = CR*5, cao = CC*5;
-	
-	//lay toa do diem tren truc Oz
-	toaDoDiem a;
-	int tmpX = 450;
-	int tmpY = 400;
-	a = v_lineDDA2(450, 400, 270, 530, dai, 2);
-	if(x > tmpX || x < tmpX){
-		tmpX = x - tmpX;
-	}
-	else{
-		tmpX = 0;
-	}
-	
-	if(y > tmpY || y< tmpY){
-		tmpY = y - tmpY;
-	}
-	else{
-		tmpY = 0;
-	}
-	a.x = a.x + tmpX;
-	a.y = a.y + tmpY;
-	
-	//ve canh day cua hinh chop
-	v_lineDDA3(x, y, a.x, a.y, 2, 2);
-	v_lineDDA3(x, y, x+rong, y, 2, 2);
-	v_lineDDA(a.x, a.y, a.x+rong, a.y, 2);
-	v_lineDDA(a.x+rong, a.y, x+rong, y, 2);
-	
-	//ve duong cao
-	v_lineDDA3(x, y, x, y-cao, 2, 2);
-	v_lineDDA(a.x, a.y, x, y-cao, 2);
-	v_lineDDA(a.x+rong, a.y, x, y-cao, 2);
-	v_lineDDA(x+rong, y, x, y-cao, 2);
-}
+
 //1.7. xu li nhap
 int v_nhapDuLieu(){ //phan ve hinh hop
 			v_veTrucOxyz();
@@ -608,8 +624,6 @@ int v_nhapDuLieu(){ //phan ve hinh hop
 							dem++;
 							check++;
 							soHien = "";
-							
-//							cout<<"kichThuoc[0] = "<<kichThuoc[0];
 						}
 						soHien = chr;
 						char *cstr = new char[soHien.length()+1];
@@ -626,9 +640,8 @@ int v_nhapDuLieu(){ //phan ve hinh hop
 						outtextxy(x, y, cstr);
 						x+=15;
 						if(check > 5){
-//							v_hinhHopCN((kichThuoc[0] - kichThuoc[2])*5 + 450, 400 - (kichThuoc[1] - kichThuoc[2])*5, kichThuoc[3], kichThuoc[4], kichThuoc[5]);
-							v_hinhHopCN((kichThuoc[0])*5 - kichThuoc[2]*4 + 450, 400 - (kichThuoc[1])*5 + kichThuoc[2]*3, kichThuoc[3], kichThuoc[4], kichThuoc[5]);
-							//v_hinhChopVuong(kichThuoc[0]*5 + 450, kichThuoc[1]*5 + 400, kichThuoc[2], kichThuoc[3], kichThuoc[4]);
+							v_hinhHopCN((kichThuoc[0] - kichThuoc[2])*25 + 450, 400 - (kichThuoc[1] - kichThuoc[2])*25, kichThuoc[3], kichThuoc[4], kichThuoc[5]);
+							delay(3000);
 							return 2;
 						}
 					}
