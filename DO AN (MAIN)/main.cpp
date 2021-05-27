@@ -1250,12 +1250,12 @@ void normal(){
 }
 void inToaDo(int xb, int yb, int color){
 
-	string s = "(" + to_string(xb) + "," + to_string(yb) + ")Thuc hien tot 5k de phong chong dich";
+	string s = "(" + to_string(xb/5) + "," + to_string(yb/5) + ")Thuc hien tot 5k de phong chong dich";
 	char * text = stringToChar(s);
 	setbkcolor(0);
 	setcolor(0);
 	outtextxy(xb, yb, text);
-	s = "(" + to_string(xb) + "," + to_string(yb) + ")Thuc hien tot 5k de phong chong dich";
+	s = "(" + to_string(xb/5) + "," + to_string(yb/5) + ")Thuc hien tot 5k de phong chong dich";
 	text = stringToChar(s);
 	normal();
 	outtextxy(xb, yb, text);
