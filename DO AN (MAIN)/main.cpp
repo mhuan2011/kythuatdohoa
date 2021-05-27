@@ -403,13 +403,13 @@ void v_lineDDAforOxyz(int x1, int y1, int x2, int y2, int color){ //duong thang 
 
 //ve diem pixe = 5
 void putpixel1(int x, int y, int color){
-	v_lineDDAforOxyz(x-2.5, y-2.5, x+2.5, y-2.5, color);
-	v_lineDDAforOxyz(x-2.5, y-2.5, x-2.5, y+2.5, color);
-	v_lineDDAforOxyz(x-2.5, y+2.5, x+2.5, y+2.5, color);
-	v_lineDDAforOxyz(x+2.5, y-2.5, x+2.5, y+2.5, color);
+	v_lineDDAforOxyz(x-2, y-2, x+2, y-2, color);
+	v_lineDDAforOxyz(x-2, y-2, x-2, y+2, color);
+	v_lineDDAforOxyz(x-2, y+2, x+2, y+2, color);
+	v_lineDDAforOxyz(x+2, y-2, x+2, y+2, color);
 	for(int i = 0; i<5; i++){
-		v_lineDDAforOxyz(x-2.5, y-2.5+i, x+2.5, y-2.5+i, color);
-		v_lineDDAforOxyz(x-2.5+i, y+2.5, x+2.5, y+2.5, color);
+		v_lineDDAforOxyz(x-2, y-2+i, x+2, y-2+i, color);
+		v_lineDDAforOxyz(x-2+i, y+2, x+2, y+2, color);
 	}
 
 }
@@ -477,7 +477,7 @@ void v_lineDDAOz(int x1, int y1, int x2, int y2, int color){
         k++;
         x += x_inc;
         y += y_inc;
-        if(dem % 3 == 0){
+        if(dem % 2 == 0){
         	putpixel(Round(x),Round(y),color);	
 		}
 		dem++;
@@ -521,10 +521,10 @@ void v_lineDDAKhuat(int x1, int y1, int x2, int y2, int color){
 	        k++;
 	        x += x_inc;
 	        y += y_inc;
-	        if (dem < 15){
+	        if (dem < 10){
 	        	dem ++ ;
 			}
-	        if(dem == 15){
+	        if(dem == 10){
 	        	putpixel1(Round(x),Round(y),color);	
 	        	dem = 0;
 			}
@@ -547,10 +547,8 @@ toaDoDiem v_lineDDA2(int x1, int y1, int x2, int y2, int chieuDai, int color){
     while(k <=step){
         k++;
         x += x_inc;
-        y += y_inc;
-        if(count <= chieuDai){
-		}	
-		else if(count >= chieuDai){
+        y += y_inc;	
+		if(count == chieuDai){
 			a.x = Round(x);
 			a.y = Round(y);
 			return a;
@@ -588,11 +586,7 @@ void v_veTrucOxyz(){
 	
 	//cham diem pixel
 	//truc Oy
-	for (int i = 105; i<400; i++){
-		if(i%5 == 0){
-			putpixel(450, i, 15);
-		}
-	}
+	v_lineDDA1(450, 400, 450, 105, 15);
 	//truc Ox
 	v_lineDDA1(450, 400, 800, 400, 15);
 	//truc Oz
@@ -601,7 +595,7 @@ void v_veTrucOxyz(){
 
 //1.5. Ve hinh hop chu nhat
 void v_hinhHopCN(int x, int y, int CD, int CR, int CC){
-	int dai = Round(CD*5/2), rong = CR*5, cao = CC*5;
+	int dai = Round(CD*(5/2)), rong = CR*5, cao = CC*5;
 	
 	//HCM mat sau
 	v_lineDDA3(x, y, x, y - cao, 2);
@@ -617,14 +611,14 @@ void v_hinhHopCN(int x, int y, int CD, int CR, int CC){
 	if(x > tmpX || x < tmpX){
 		tmpX = x - tmpX;
 	}
-	else{
+	else if (x == tmpX){
 		tmpX = 0;
 	}
 	
 	if(y > tmpY || y< tmpY){
 		tmpY = y - tmpY;
 	}
-	else{
+	else if (y == tmpY){
 		tmpY = 0;
 	}
 	a.x = a.x + tmpX;
@@ -712,7 +706,6 @@ int v_nhapDuLieu(){ //phan ve hinh hop
 
 						so += a[0];
 
-						cout <<a;
 						outtextxy(x, y, cstr);
 						x+=15;
 						if(check > 5){
