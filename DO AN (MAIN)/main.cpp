@@ -760,10 +760,10 @@ void elipMidpoint(int xc,int yc, int a, int b, int color)
         }
 		if (draw == 5){
 			draw = 0;
-		if(dem == 5){
+		if(dem == 3){
 			dem = 0;
 		}
-		else if((dem == 3) || (dem == 4)){
+		else if((dem == 2)){
 			dem++;
 		}
 		else{
@@ -794,10 +794,10 @@ void elipMidpoint(int xc,int yc, int a, int b, int color)
         }
         if (draw == 5){
 			draw = 0;
-		if(dem == 5){
+		if(dem == 3){
 			dem = 0;
 		}
-		else if((dem == 3) || (dem == 4)){
+		else if((dem == 2)){
 			dem++;
 		}
 		else{
@@ -844,10 +844,10 @@ void elipMidpointDoc(int xc,int yc, int a, int b, int color)
         }
 		if (draw == 5){
 			draw = 0;
-		if(dem == 5){
+		if(dem == 3){
 			dem = 0;
 		}
-		else if((dem == 3) || (dem == 4)){
+		else if((dem == 2)){
 			dem++;
 		}
 		else{
@@ -878,10 +878,10 @@ void elipMidpointDoc(int xc,int yc, int a, int b, int color)
         }
         if (draw == 5){
 			draw = 0;
-		if(dem == 5){
+		if(dem == 3){
 			dem = 0;
 		}
-		else if((dem == 3) || (dem == 4)){
+		else if((dem == 2)){
 			dem++;
 		}
 		else{
