@@ -931,7 +931,7 @@ void drawSphere(int xc, int yc, int r, int color)
 	putpixel1(xc, yc, 2);
 	drawCircleMidpoint(xc, yc, r, color);
 	elipMidpoint(xc, yc, r, r/3, color);
-	elipMidpointDoc(xc, yc, r/3, r, color);
+	//elipMidpointDoc(xc, yc, r/3, r, color);
 }
 //2.5. Nhap du lieu
 int l_nhapDuLieu(){
