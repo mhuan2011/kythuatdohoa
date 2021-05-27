@@ -1165,6 +1165,145 @@ void put5x5pixel(int x,int y,int color){
 		line(x1,y1+i,x2,y1+i);
 	}
 }
+void h_drawcircle(int x0, int y0, int radius, int color)
+{
+    int x = radius;
+    int y = 0;
+    int err = 0;
+
+    while (x >= y)
+    {
+	put5x5pixel(x0 + x, y0 + y, color);
+	put5x5pixel(x0 + y, y0 + x, color);
+	put5x5pixel(x0 - y, y0 + x, color);
+	put5x5pixel(x0 - x, y0 + y, color);
+	put5x5pixel(x0 - x, y0 - y, color);
+	put5x5pixel(x0 - y, y0 - x, color);
+	put5x5pixel(x0 + y, y0 - x, color);
+	put5x5pixel(x0 + x, y0 - y, color);
+
+	if (err <= 0)
+	{
+	    y += 1;
+	    err += 2*y + 1;
+	}
+
+	if (err > 0)
+	{
+	    x -= 1;
+	    err -= 2*x + 1;
+	}
+    }
+}
+void plotNuaPhai(int xc, int yc, int x, int y, int color)
+{
+//    put5x5pixel(xc+x, yc+y, color);
+    put5x5pixel(xc-x, yc+y, color);
+//    put5x5pixel(xc+x, yc-y, color);
+    put5x5pixel(xc-x, yc-y, color);
+}
+
+void plotNuaTrai(int xc, int yc, int x, int y, int color)
+{
+    put5x5pixel(xc+x, yc+y, color);
+//    put5x5pixel(xc-x, yc+y, color);
+    put5x5pixel(xc+x, yc-y, color);
+//    put5x5pixel(xc-x, yc-y, color);
+}
+
+void elipNuaTrai(int xc,int yc, int a, int b, int color)
+{
+    int x, y, fx, fy, a2, b2, p;
+    x = 0;
+    y = b;
+    a2 = a*a;
+    b2 = b*b;
+    fx = 0;
+    fy = 2 * a2 * y;
+    plotNuaPhai(xc, yc, x, y, color);
+    p = Round(b2 -(a2*b) + (0.25*a2));//p=b2 - a2*b +a2/4
+    while(fx<fy)
+    {
+        x++;
+        fx += 2*b2;
+        if(p<0)
+        {
+            p += b2*(2*x + 3);//p=p + b2*(2x +3)
+        }
+        else
+        {
+            y--;
+            p += b2*(2*x +3) + a2*(2- 2*y);//p=p +b2(2x +3) +a2(2-2y)
+            fy -= 2*a2;
+        }
+        plotNuaPhai(xc, yc, x, y, color);
+    }
+    p = Round(b2*(x +0.5)*(x +0.5) + a2*(y-1)*(y-1) - a2*b2);
+    //
+    while(y>0)
+    {
+        y--;
+        fy -= 2*a2;
+        if(p >=0)
+        {
+            p += a2*(3-2*y); //p=p +a2(3-2y)
+        }
+        else
+        {
+            x++;
+            fx += 2*b2;
+            p += b2*(2*x +2) +a2*(3- 2*y);//p=p+ b2(2x +2) + a2(3-2y)
+        }
+        plotNuaPhai(xc, yc, x, y, color);
+    }
+}
+
+void elipNuaPhai(int xc,int yc, int a, int b, int color)
+{
+    int x, y, fx, fy, a2, b2, p;
+    x = 0;
+    y = b;
+    a2 = a*a;
+    b2 = b*b;
+    fx = 0;
+    fy = 2 * a2 * y;
+    plotNuaTrai(xc, yc, x, y, color);
+    p = Round(b2 -(a2*b) + (0.25*a2));//p=b2 - a2*b +a2/4
+    while(fx<fy)
+    {
+        x++;
+        fx += 2*b2;
+        if(p<0)
+        {
+            p += b2*(2*x + 3);//p=p + b2*(2x +3)
+        }
+        else
+        {
+            y--;
+            p += b2*(2*x +3) + a2*(2- 2*y);//p=p +b2(2x +3) +a2(2-2y)
+            fy -= 2*a2;
+        }
+        plotNuaTrai(xc, yc, x, y, color);
+    }
+    p = Round(b2*(x +0.5)*(x +0.5) + a2*(y-1)*(y-1) - a2*b2);
+    //
+    while(y>0)
+    {
+        y--;
+        fy -= 2*a2;
+        if(p >=0)
+        {
+            p += a2*(3-2*y); //p=p +a2(3-2y)
+        }
+        else
+        {
+            x++;
+            fx += 2*b2;
+            p += b2*(2*x +2) +a2*(3- 2*y);//p=p+ b2(2x +2) + a2(3-2y)
+        }
+        plotNuaTrai(xc, yc, x, y, color);
+    }
+}
 void lineDDA(int x1, int y1, int x2, int y2, int color){       // thuat toan DDA
     int  Dx = x2 - x1, Dy = y2 - y1;  
     float x_inc , y_inc;
@@ -1184,7 +1323,8 @@ void lineDDA(int x1, int y1, int x2, int y2, int color){       // thuat toan DDA
 	    put5x5pixel(Round(x),Round(y),color);
 }
 }
-void drawcircle(int x0, int y0, int radius,int color)
+
+void drawNuacircleDuoi(int x0, int y0, int radius,int color)
 {
     int x = radius;
     int y = 0;
@@ -1192,15 +1332,43 @@ void drawcircle(int x0, int y0, int radius,int color)
  
     while (x >= y)
     {
-	put5x5pixel(x0 + x, y0 + y, color);
-	put5x5pixel(x0 + y, y0 + x, color);
-	put5x5pixel(x0 - y, y0 + x, color);
-	put5x5pixel(x0 - x, y0 + y, color);
-	put5x5pixel(x0 - x, y0 - y, color);
-	put5x5pixel(x0 - y, y0 - x, color);
-	put5x5pixel(x0 + y, y0 - x, color);
-	put5x5pixel(x0 + x, y0 - y, color);
+		put5x5pixel(x0 + x, y0 + y, color);
+		put5x5pixel(x0 + y, y0 + x, color);
+		put5x5pixel(x0 - y, y0 + x, color);
+		put5x5pixel(x0 - x, y0 + y, color);
+//		put5x5pixel(x0 - x, y0 - y, color);
+//		put5x5pixel(x0 - y, y0 - x, color);
+//		put5x5pixel(x0 + y, y0 - x, color);
+//		put5x5pixel(x0 + x, y0 - y, color);
+	if (err <= 0)
+	{
+	    y += 1;
+	    err += 2*y + 1;
+	}
  
+	if (err > 0)
+	{
+	    x -= 1;
+	    err -= 2*x + 1;
+	}
+    }
+}
+void drawNuacircleTren(int x0, int y0, int radius,int color)
+{
+    int x = radius;
+    int y = 0;
+    int err = 0;
+ 
+    while (x >= y)
+    {
+//		put5x5pixel(x0 + x, y0 + y, color);
+//		put5x5pixel(x0 + y, y0 + x, color);
+//		put5x5pixel(x0 - y, y0 + x, color);
+//		put5x5pixel(x0 - x, y0 + y, color);
+		put5x5pixel(x0 - x, y0 - y, color);
+		put5x5pixel(x0 - y, y0 - x, color);
+		put5x5pixel(x0 + y, y0 - x, color);
+		put5x5pixel(x0 + x, y0 - y, color);
 	if (err <= 0)
 	{
 	    y += 1;
@@ -1289,67 +1457,8 @@ void veThanCoiXoayGio(int xo, int yo, int banKinh,int chieuCao, int color){
 	
 	}
 // thuc hien phep quay nguyen canh quat
-void quayCanhQuat(int xo, int yo, int color){
-	
-	int banKinh = 15;
-	
-	// xo, yo la tam cua canh quat
-	int goc = 5;
 
-	int chieuDaiCanh = 25;
-	//duong thang ngang
-	int xa1 = xo;
-	int ya1 = yo-chieuDaiCanh;
-	int xb1 = xo;
-	int yb1 = yo+chieuDaiCanh;
 	
-	//duong thang doc
-	int xa2 = xo-chieuDaiCanh;
-	int ya2 = yo;
-	int xb2 = xo+chieuDaiCanh;
-	int yb2 = yo;
-	//xoay canh quat
-	int chieuDaiTamGiac = chieuDaiCanh*3;
-	int chieuDaiDay = chieuDaiTamGiac/2;
-	// canh quat phai
-	int xar = xo+chieuDaiCanh;
-	int yar	=yo;
-	int xbr =xar+chieuDaiTamGiac;
-	int ybr = yar-chieuDaiDay/2;
-	int xcr = xar+chieuDaiTamGiac;
-	int ycr = yar+chieuDaiDay/2;
-	//canh quat trai
-	int xal = xo-chieuDaiCanh;
-	int yal = yo;
-	int xbl = xal-chieuDaiTamGiac;
-	int ybl = yal+chieuDaiDay/2;
-	int xcl = xal-chieuDaiTamGiac;
-	int ycl = yal-chieuDaiDay/2;
-	// canh quat tren 
-	int xct = xo;
-	int yct = yo+chieuDaiCanh;
-	int xat = xct-chieuDaiDay/2;
-	int yat = yct+chieuDaiTamGiac;
-	int xbt = xct + chieuDaiDay/2;
-	int ybt = yct+chieuDaiTamGiac;
-	// canh quat duoi
-	int xcb = xo;
-	int ycb = yo-chieuDaiCanh;
-	int xab = xcb-chieuDaiDay/2;
-	int yab = ycb-chieuDaiTamGiac;
-	int xbb = xcb + chieuDaiDay/2;
-	int ybb =  ycb-chieuDaiTamGiac;
-	while(1){
-		drawcircle(xo, yo, banKinh, color);
-		xoayDuongThang(xa1, ya1, xb1, yb1, xo, yo, goc, color);
-		xoayDuongThang(xa2, ya2, xb2, yb2, xo, yo, goc, color);
-		xoayTamGiac(xar, yar, xbr, ybr, xcr, ycr, xo, yo, goc, color);
-		xoayTamGiac(xal, yal, xbl, ybl, xcl, ycl, xo, yo, goc, color);
-		xoayTamGiac(xat, yat, xbt, ybt, xct, yct, xo, yo, goc, color);
-		xoayTamGiac(xab, yab, xbb, ybb, xcb, ycb, xo, yo, goc, color);
-		veThanCoiXoayGio(xo, yo, banKinh, 150, color);
-	}
-	}
 char * stringToChar(string s){
 	char *text = new char[s.length() + 1];
 	strcpy(text, s.c_str());
@@ -1361,12 +1470,12 @@ void normal(){
 }
 void inToaDo(int xb, int yb, int color){
 
-	string s = "(" + to_string(xb/5-115) + "," + to_string(-(yb/5-60)) + ")";
+	string s = "(" + to_string(xb/5) + "," + to_string(yb/5) + ")Thuc hien tot 5k de phong chong dich";
 	char * text = stringToChar(s);
 	setbkcolor(0);
 	setcolor(0);
 	outtextxy(xb, yb, text);
-	s = "(" + to_string(xb/5-115) + "," + to_string(-(yb/5-60)) + ")";
+	s = "(" + to_string(xb/5) + "," + to_string(yb/5) + ")Thuc hien tot 5k de phong chong dich";
 	text = stringToChar(s);
 	normal();
 	outtextxy(xb, yb, text);
@@ -1374,17 +1483,22 @@ void inToaDo(int xb, int yb, int color){
 }
 void xoayToaDo(int xb, int yb, int xo, int yo, int goc, int color){
 	
-	string s = "(" + to_string(xb) + "," + to_string(yb) + ")";
+	string s = "(" + to_string(xb-575/5) + "," + to_string(-(yb-300/5)) + ")";
 	char * text = stringToChar(s);
 	setbkcolor(0);
 	setcolor(0);
 	outtextxy(xb*5, yb*5, text);
 	rotate_point(xb, yb, xo, yo, goc);
-	s = "(" + to_string(xb) + "," + to_string(yb) + ")";
+	s = "(" + to_string(xb-575/5) + "," +  to_string(-(yb-300/5)) + ")";
 	text = stringToChar(s);
 	normal();
 	outtextxy(xb*5, yb*5, text);
 	delete [] text;
+}
+void h_inToaDo(int x, int y, string s, int color){
+	setbkcolor(bgColor);
+	setcolor(color);
+	outtextxy(x*5, y*5, stringToChar(s));
 }
 void veHCN(int x, int y, int cao,int color){
 	setbkcolor(0);
@@ -1396,6 +1510,55 @@ void veHCN(int x, int y, int cao,int color){
 	}
 	normal();
 }
+void veMay(int x1, int y1, int r, int a, int b, int color){
+	drawNuacircleTren(x1, y1-b, r, color);
+	string toaDoCircle = "(" + to_string(x1-575/5) + "," + to_string(-(y1-b-r-300/5)) + ")";
+	h_inToaDo(x1, y1-b-r-3,toaDoCircle, color);
+	drawNuacircleDuoi(x1, y1+b, r, color);
+	elipNuaTrai(x1-r, y1,a,b, color);
+	elipNuaPhai(x1+r, y1,a,b, color);
+	string toDoElip = "(" + to_string(x1+r+b-575/5) + "," + to_string(-(y1-300/5)) + ")";
+	h_inToaDo(x1+r+b+5, y1,toDoElip, color);
+}
+
+void doiXungDiem(int &x1, int &y1, int xo, int yo){
+	// tinh  tien ve goc toa do 1 doan sx = xo, sy = yo
+	x1 = x1-xo;
+	y1 = y1-yo;
+	// doi xung tam O;
+	x1 = -x1;
+	y1 = -y1;
+	// // tinh tien ve vi tri cu
+	x1 = x1 + xo;
+	y1 = y1 + yo;
+}
+void doiXungDuongThang(int &x1, int &y1, int &x2, int &y2, int xo, int yo){
+	doiXungDiem(x1, y1, xo, yo);
+	doiXungDiem(x2, y2, xo, yo);
+}
+void veMatTroi(int xo, int yo, int r, int color){
+	h_drawcircle(xo, yo, r, 4);
+	string toDoElip = "(" + to_string(xo-575/5) + "," + to_string(-(yo-300/5)) + ")";
+	h_inToaDo(xo, yo,toDoElip, color);
+	int x1 = xo + r + 2;
+	int y1 = yo;
+	int x2 = x1 + r;
+	int y2 = y1;
+	int goc = 0;
+	int soTia = 8;
+	
+	for(int i=1; i<=soTia/2; i++){
+		lineDDA(x1, y1, x2, y2, 5);
+		doiXungDuongThang(x1,y1, x2, y2, xo, yo);
+		lineDDA(x1, y1, x2, y2, 5);
+		
+		if(i==1) goc = 360/soTia;
+		rotate_point(x1, y1, xo, yo, goc);
+		rotate_point(x2, y2, xo, yo, goc);
+	}
+	
+	
+}
 
 int coiXoayGio(){
 	xoaKhungChiTiet();
@@ -1404,7 +1567,7 @@ int coiXoayGio(){
 	// xo, yo la tam cua canh quat
 	int color = 15;
 	int goc = 10;
-	int xo=100, yo=70;
+	int xo=100, yo=75;
 	int chieuDaiCanh = 6;
 	int chieuCaoThan = 30;
 	//duong thang ngang
@@ -1449,7 +1612,15 @@ int coiXoayGio(){
 	int yab = ycb-chieuDaiTamGiac;
 	int xbb = xcb + chieuDaiDay/2;
 	int ybb =  ycb-chieuDaiTamGiac;
+//-----------------
 
+	int xmay = 80, ymay = 35;
+	int r = 8, a =13, b=5;
+	// mat troi trong tim em
+	int xmt = 150, ymt = 20;
+	int rmt = 8;
+	int count =0;
+	
 	while(true){
 		int Mx, My;
 		getmouseclick(WM_LBUTTONDOWN, Mx, My);
@@ -1474,16 +1645,32 @@ int coiXoayGio(){
 		if(kbhit()){
 			break;
 		}
-		drawcircle(xo, yo, banKinh, color);
+		veMatTroi(xmt, ymt, rmt, color);
+		delay(100);
+		veHCN(xmay*5-150, ymay*5-100, 160, 0);
+		
+			float tileTo = 1.1;
+				float tileNho = 0.9;
+		if(count%2==0){
+			
+			veMay(xmay, ymay, r*tileTo, a*tileTo, b*tileTo, 11);
+		}else{
+			veMay(xmay, ymay, r*tileNho, a*tileNho, b*tileNho, 11);
+		}
+			n_line(575/5,0/5,575/5,590/5);//oy  575
+		setcolor(15);
+		n_line(250/5,300/5,900/5,300/5);//ox 300
+		h_drawcircle(xo, yo, banKinh, color);
 		xoayDuongThang(xa1, ya1, xb1, yb1, xo, yo, goc, color);
 		xoayDuongThang(xa2, ya2, xb2, yb2, xo, yo, goc, color);
 		xoayToaDo(xbr, ybr, xo, yo, goc, color);
-		xoayTamGiac(xar, yar, xbr, ybr, xcr, ycr, xo, yo, goc, color);
-		xoayTamGiac(xal, yal, xbl, ybl, xcl, ycl, xo, yo, goc, color);
-		xoayTamGiac(xat, yat, xbt, ybt, xct, yct, xo, yo, goc, color);
-		xoayTamGiac(xab, yab, xbb, ybb, xcb, ycb, xo, yo, goc, color);
-		veThanCoiXoayGio(xo, yo, banKinh, chieuCaoThan, color);
+		xoayTamGiac(xar, yar, xbr, ybr, xcr, ycr, xo, yo, goc, 12);
+		xoayTamGiac(xal, yal, xbl, ybl, xcl, ycl, xo, yo, goc, 11);
+		xoayTamGiac(xat, yat, xbt, ybt, xct, yct, xo, yo, goc, 10);
+		xoayTamGiac(xab, yab, xbb, ybb, xcb, ycb, xo, yo, goc, 9);
+		veThanCoiXoayGio(xo, yo, banKinh, chieuCaoThan, 6);
 		delay(100);
+		count ++;
 	}
 }
 void xuli2D(){
