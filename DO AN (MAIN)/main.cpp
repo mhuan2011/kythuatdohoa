@@ -455,8 +455,8 @@ void v_lineDDA1(int x1, int y1, int x2, int y2, int color){
         k++;
         x += x_inc;
         y += y_inc;
-        if(dem % 10 == 0){
-        	putpixel1(Round(x),Round(y),color);	
+        if(dem % 5 == 0){
+        	putpixel(Round(x),Round(y),color);	
 		}
 		dem++;
     }
@@ -477,8 +477,8 @@ void v_lineDDAOz(int x1, int y1, int x2, int y2, int color){
         k++;
         x += x_inc;
         y += y_inc;
-        if(dem % 5 == 0){
-        	putpixel1(Round(x),Round(y),color);	
+        if(dem % 3 == 0){
+        	putpixel(Round(x),Round(y),color);	
 		}
 		dem++;
     }
@@ -586,22 +586,22 @@ void v_veTrucOxyz(){
 	outtextxy(470, 100, "y");
 	outtextxy(275, 535, "z");
 	
-//	//cham diem pixel
-//	//truc Oy
-//	for (int i = 105; i<400; i++){
-//		if(i%10 == 0){
-//			putpixel1(450, i, 15);
-//		}
-//	}
-//	//truc Ox
-//	v_lineDDA1(450, 400, 800, 400, 15);
-//	//truc Oz
-//	v_lineDDAOz(450, 400, 300, 550, 15);
+	//cham diem pixel
+	//truc Oy
+	for (int i = 105; i<400; i++){
+		if(i%5 == 0){
+			putpixel(450, i, 15);
+		}
+	}
+	//truc Ox
+	v_lineDDA1(450, 400, 800, 400, 15);
+	//truc Oz
+	v_lineDDAOz(450, 400, 300, 550, 15);
 }
 
 //1.5. Ve hinh hop chu nhat
 void v_hinhHopCN(int x, int y, int CD, int CR, int CC){
-	int dai = Round(CD*10/2), rong = CR*10, cao = CC*10;
+	int dai = Round(CD*5/2), rong = CR*5, cao = CC*5;
 	
 	//HCM mat sau
 	v_lineDDA3(x, y, x, y - cao, 2);
@@ -716,8 +716,7 @@ int v_nhapDuLieu(){ //phan ve hinh hop
 						outtextxy(x, y, cstr);
 						x+=15;
 						if(check > 5){
-							v_hinhHopCN((kichThuoc[0] - kichThuoc[2]*(sqrt(2)/2))*10 + 450, 400 - (kichThuoc[1] - kichThuoc[2]*(sqrt(2)/2))*10, kichThuoc[3], kichThuoc[4], kichThuoc[5]);
-							delay(3000);
+							v_hinhHopCN((kichThuoc[0] - kichThuoc[2]*(sqrt(2)/2))*5 + 450, 400 - (kichThuoc[1] - kichThuoc[2]*(sqrt(2)/2))*5, kichThuoc[3], kichThuoc[4], kichThuoc[5]);
 							return 2;
 						}
 					}
@@ -1352,7 +1351,7 @@ int coiXoayGio(){
 		}
 		if(Mx>265 && Mx<365 && My>7 && My<34){
 			chonNguCanh(1);
-			veHCN(xo-chieuDaiCanh-chieuDaiTamGiac, yo-chieuDaiCanh-chieuDaiTamGiac, chieuDaiCanh+chieuDaiTamGiac+chieuCaoThan,0);	
+			//veHCN(xo-chieuDaiCanh-chieuDaiTamGiac, yo-chieuDaiCanh-chieuDaiTamGiac, chieuDaiCanh+chieuDaiTamGiac+chieuCaoThan,0);	
 			veHCN(255,100,570,0);
 			return 1;		
 		}
