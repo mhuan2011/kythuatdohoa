@@ -455,7 +455,7 @@ void v_lineDDA1(int x1, int y1, int x2, int y2, int color){
         k++;
         x += x_inc;
         y += y_inc;
-        if(dem % 25 == 0){
+        if(dem % 10 == 0){
         	putpixel1(Round(x),Round(y),color);	
 		}
 		dem++;
@@ -477,7 +477,7 @@ void v_lineDDAOz(int x1, int y1, int x2, int y2, int color){
         k++;
         x += x_inc;
         y += y_inc;
-        if(dem % 13 == 0){
+        if(dem % 5 == 0){
         	putpixel1(Round(x),Round(y),color);	
 		}
 		dem++;
@@ -499,7 +499,7 @@ void v_lineDDA3(int x1, int y1, int x2, int y2, int color){
 	        k++;
 	        x += x_inc;
 	        y += y_inc;
-	        if(dem % 25 == 0){
+	        if(dem % 10 == 0){
 	        	putpixel1(Round(x),Round(y),color);	
 			}
 			dem++;
@@ -521,10 +521,10 @@ void v_lineDDAKhuat(int x1, int y1, int x2, int y2, int color){
 	        k++;
 	        x += x_inc;
 	        y += y_inc;
-	        if (dem < 25){
+	        if (dem < 15){
 	        	dem ++ ;
 			}
-	        if(dem == 25){
+	        if(dem == 15){
 	        	putpixel1(Round(x),Round(y),color);	
 	        	dem = 0;
 			}
@@ -589,19 +589,19 @@ void v_veTrucOxyz(){
 //	//cham diem pixel
 //	//truc Oy
 //	for (int i = 105; i<400; i++){
-//		if(i%25 == 0){
+//		if(i%10 == 0){
 //			putpixel1(450, i, 15);
 //		}
 //	}
 //	//truc Ox
 //	v_lineDDA1(450, 400, 800, 400, 15);
 //	//truc Oz
-//	v_lineDDAOz(450, 400, 270, 530, 15);
+//	v_lineDDAOz(450, 400, 300, 550, 15);
 }
 
 //1.5. Ve hinh hop chu nhat
 void v_hinhHopCN(int x, int y, int CD, int CR, int CC){
-	int dai = Round(CD*25/2), rong = CR*25, cao = CC*25;
+	int dai = Round(CD*10/2), rong = CR*10, cao = CC*10;
 	
 	//HCM mat sau
 	v_lineDDA3(x, y, x, y - cao, 2);
@@ -716,7 +716,7 @@ int v_nhapDuLieu(){ //phan ve hinh hop
 						outtextxy(x, y, cstr);
 						x+=15;
 						if(check > 5){
-							v_hinhHopCN((kichThuoc[0] - kichThuoc[2]*(sqrt(2)/2))*25 + 450, 400 - (kichThuoc[1] - kichThuoc[2]*(sqrt(2)/2))*25, kichThuoc[3], kichThuoc[4], kichThuoc[5]);
+							v_hinhHopCN((kichThuoc[0] - kichThuoc[2]*(sqrt(2)/2))*10 + 450, 400 - (kichThuoc[1] - kichThuoc[2]*(sqrt(2)/2))*10, kichThuoc[3], kichThuoc[4], kichThuoc[5]);
 							delay(3000);
 							return 2;
 						}
