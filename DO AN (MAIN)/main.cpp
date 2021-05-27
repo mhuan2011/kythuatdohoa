@@ -684,7 +684,7 @@ int v_nhapDuLieu(){ //phan ve hinh hop
 						x -=15;
 						outtextxy(x, y, " ");
 					}
-					else if (int(chr) >= 48 && int(chr) <= 57  || int(chr) == 13){
+					else if (int(chr) >= 48 && int(chr) <= 57  || int(chr) == 13 || int(chr) == 45){
 						if(int(chr) == 13){
 							int tmp = atoi(so.c_str());
 							so = "";
@@ -973,7 +973,7 @@ int l_nhapDuLieu(){
 						x -=15;
 						outtextxy(x, y, " ");
 					}
-					else if (int(chr) >= 48 && int(chr) <= 57  || int(chr) == 13){
+					else if (int(chr) >= 48 && int(chr) <= 57  || int(chr) == 13 || int(chr)==45){
 						if(int(chr) == 13){
 							int tmp = atoi(so.c_str());
 							so = "";
