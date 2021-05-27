@@ -928,9 +928,9 @@ void drawCircleMidpoint(int xc, int yc, int r, int color)
 //2.4. Ve hinh cau
 void drawSphere(int xc, int yc, int r, int color)
 {
-	putpixel1(xc, yc, 2);
+	putpixel(xc, yc, 2);
 	drawCircleMidpoint(xc, yc, r, color);
-	elipMidpoint(xc, yc, r, r/3, color);
+	elipMidpoint(xc, yc, r, r*(sqrt(2)/4), color);
 	//elipMidpointDoc(xc, yc, r/3, r, color);
 }
 //2.5. Nhap du lieu
@@ -989,7 +989,7 @@ int l_nhapDuLieu(){
 						outtextxy(x, y, a);
 						x+=15;
 						if(check > 3){
-							drawSphere((kichThuoc[0] - kichThuoc[2]*(sqrt(2)/2))*5 + 450, 400 - (kichThuoc[1] - kichThuoc[2]*(sqrt(2)/2))*5 , kichThuoc[3] * 5, 2);
+							drawSphere((kichThuoc[0] - kichThuoc[2]*(sqrt(2)/4))*5 + 450, 400 - (kichThuoc[1] - kichThuoc[2]*(sqrt(2)/4))*5 , kichThuoc[3] * 5, 2);
 							//v_hinhChopVuong(kichThuoc[0]*5 + 450, kichThuoc[1]*5 + 400, kichThuoc[2], kichThuoc[3], kichThuoc[4]);
 							return 2;
 							
