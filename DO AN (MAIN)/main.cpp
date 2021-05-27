@@ -637,6 +637,57 @@ void v_hinhHopCN(int x, int y, int CD, int CR, int CC){
 	v_lineDDA(x + rong, y - cao, a.x + rong, a.y - cao, 2);	
 }
 
+//xuat diem ra console
+void xuatDiem(int x, int y, int z, int CD, int CR, int CC){
+	cout << "-----------HINH HOP CHU NHAT BANG TOA DO NGUOI DUNG-----------\n";
+	cout << "	Diem A(" << x << ", " << y << ", " << z << ") \n";
+	cout << "	Diem B(" << x + CR << ", " << y << ", " << z << ") \n";
+	cout << "	Diem C(" << x + CR << ", " << y << ", " << z + CD << ") \n";
+	cout << "	Diem D(" << x << ", " << y << ", " << z + CD << ") \n\n";
+	
+	cout << "	Diem A'(" << x << ", " << y + CC << ", " << z << ") \n";
+	cout << "	Diem B'(" << x + CR << ", " << y + CC << ", " << z << ") \n";
+	cout << "	Diem C'(" << x + CR << ", " << y + CC << ", " << z + CD << ") \n";
+	cout << "	Diem D'(" << x << ", " << y + CC << ", " << z + CD << ") \n";
+	cout << "-------------------------------------------------------------\n\n";
+	
+	//lay toa do diem tren truc Oz
+	toaDoDiem b;
+	int tmpX = 450;
+	int tmpY = 400;
+	int dai = Round(CD*(5/2));
+	b = v_lineDDA2(450, 400, 300, 550, dai, 2);
+	int xtmp = (x - z*(sqrt(2)/4))*5 + 450;
+	int ytmp = (y - z*(sqrt(2)/4))*5 + 400;
+	if(xtmp > tmpX || xtmp < tmpX){
+		tmpX = x - tmpX;
+	}
+	else if (xtmp == tmpX){
+		tmpX = 0;
+	}
+	
+	if(ytmp > tmpY || ytmp< tmpY){
+		tmpY = y - tmpY;
+	}
+	else if (ytmp == tmpY){
+		tmpY = 0;
+	}
+	b.x = b.x + tmpX;
+	b.y = b.y + tmpY;
+	
+	cout << "-----------HINH HOP CHU NHAT BANG TOA DO MAY-----------\n";
+	cout << "	Diem A(" << x * 5  + 450 << ", " << y*5 + 400 << ")\n";
+	cout << "	Diem B(" << (x + CR)*5 + 450 << ", " << y*5 + 400 << ")\n";
+	cout << "	Diem C(" << b.x + CR*5 << ", " << b.y << ")\n";
+	cout << "	Diem D(" << b.x << ", " << b.y << ")\n\n";
+	
+	cout << "	Diem A'(" << x * 5  + 450 << ", " << (y-CC)*5+400 << ")\n";
+	cout << "	Diem B'(" << (x + CR)*5 + 450 << ", " << (y-CC)*5+400 << ")\n";
+	cout << "	Diem C'(" << b.x + CR*5 << ", " << b.y - CC*5 << ")\n";
+	cout << "	Diem D'(" << b.x << ", " << b.y - CC*5 << ")\n\n";
+	
+	cout << "-------------------------------------------------------------\n";
+}
 
 //1.7. xu li nhap
 int v_nhapDuLieu(){ //phan ve hinh hop
@@ -709,7 +760,8 @@ int v_nhapDuLieu(){ //phan ve hinh hop
 						outtextxy(x, y, cstr);
 						x+=15;
 						if(check > 5){
-							v_hinhHopCN((kichThuoc[0] - kichThuoc[2]*(sqrt(2)/2))*5 + 450, 400 - (kichThuoc[1] - kichThuoc[2]*(sqrt(2)/2))*5, kichThuoc[3], kichThuoc[4], kichThuoc[5]);
+							v_hinhHopCN((kichThuoc[0] - kichThuoc[2]*(sqrt(2)/4))*5 + 450, 400 - (kichThuoc[1] - kichThuoc[2]*(sqrt(2)/4))*5, kichThuoc[3], kichThuoc[4], kichThuoc[5]);
+							xuatDiem(kichThuoc[0], kichThuoc[1], kichThuoc[2], kichThuoc[3], kichThuoc[4], kichThuoc[5]);
 							return 2;
 						}
 					}
