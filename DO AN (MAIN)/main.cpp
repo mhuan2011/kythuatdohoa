@@ -935,7 +935,7 @@ void drawCircleMidpoint(int xc, int yc, int r, int color)
 //2.4. Ve hinh cau
 void drawSphere(int xc, int yc, int r, int color)
 {
-	putpixel(xc, yc, 2);
+	putpixel1(xc, yc, 2);
 	drawCircleMidpoint(xc, yc, r, color);
 	elipMidpoint(xc, yc, r, r/3, color);
 	elipMidpointDoc(xc, yc, r/3, r, color);
