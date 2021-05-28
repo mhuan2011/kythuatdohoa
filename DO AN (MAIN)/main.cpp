@@ -302,8 +302,9 @@ int veMayBay(){
 		setcolor(15);
 		n_drawcircle(xbom,ybom,rbom,12);
 		if(ybom<460){
-			inToaDo(xbom,ybom,15);
-			put5x5pixel(xbom/5,ybom/5,15);
+			put5x5pixel((xbom+rbom)/5,ybom/5,15);
+			inToaDo(xbom+rbom,ybom,15);
+			//put5x5pixel(xbom/5,ybom/5,15);
 		}
 		if(rbom==70){
 			break;
@@ -313,6 +314,8 @@ int veMayBay(){
 			ybom-=5;
 			rbom+=5;
 			n_drawcircle(xbom,ybom,rbom,12);
+			put5x5pixel((xbom+rbom)/5,ybom/5,15);
+			inToaDo(xbom+rbom,ybom,15);
 			//Loang(xbom/50,458/50,15,12);
 			for(int i=0;i<rbom;i++){
 				n_drawcircle(xbom,ybom,i,12);
@@ -1470,12 +1473,12 @@ void normal(){
 }
 void inToaDo(int xb, int yb, int color){
 
-	string s = "(" + to_string(xb/5) + "," + to_string(yb/5) + ")Thuc hien tot 5k de phong chong dich";
+	string s = "(" + to_string(xb/5-115) + "," + to_string(-(yb/5-60)) + ")";
 	char * text = stringToChar(s);
 	setbkcolor(0);
 	setcolor(0);
 	outtextxy(xb, yb, text);
-	s = "(" + to_string(xb/5) + "," + to_string(yb/5) + ")Thuc hien tot 5k de phong chong dich";
+	s = "(" + to_string(xb/5-115) + "," + to_string(-(yb/5-60)) + ")";
 	text = stringToChar(s);
 	normal();
 	outtextxy(xb, yb, text);
