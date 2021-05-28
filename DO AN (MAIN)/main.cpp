@@ -840,6 +840,14 @@ int v_nhapDuLieu(){ //phan ve hinh hop
 }
 //Long-------------------------------------------------------------------------------------
 //2.1. Ve elip nam ngang
+void l_xuatDiem(int x, int y, int z){
+	cout << "-----------HINH CAU BANG TOA DO NGUOI DUNG-----------\n";
+	cout << "	Diem P(Center)(" << x << ", " << y << ", " << z << ") \n";
+	cout << "-------------------------------------------------------------\n\n";	
+	cout << "-----------HINH CAU BANG TOA DO MAY------------------\n";
+	cout << "	Diem P(Center)(" << Round(x - z*(sqrt(2)/4)) * 5  +  450 << ", " << Round(y- z*(sqrt(2)/4))*5 + 400 << ")\n";	
+	cout << "-------------------------------------------------------------\n";
+}
 void elipMidpoint(int xc,int yc, int a, int b, int color)
 {
     int x, y, fx, fy, a2, b2, p;
@@ -1111,6 +1119,7 @@ int l_nhapDuLieu(){
 						x+=15;
 						if(check > 3){
 							drawSphere((kichThuoc[0] - kichThuoc[2]*(sqrt(2)/4))*5 + 450, 400 - (kichThuoc[1] - kichThuoc[2]*(sqrt(2)/4))*5 , kichThuoc[3] * 5, 2);
+							l_xuatDiem(kichThuoc[0], kichThuoc[1], kichThuoc[2]);
 							//v_hinhChopVuong(kichThuoc[0]*5 + 450, kichThuoc[1]*5 + 400, kichThuoc[2], kichThuoc[3], kichThuoc[4]);
 							return 2;
 							
