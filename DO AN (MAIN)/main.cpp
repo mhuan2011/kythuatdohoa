@@ -1638,6 +1638,7 @@ int coiXoayGio(){
 			chonNguCanh(1);
 			//veHCN(xo-chieuDaiCanh-chieuDaiTamGiac, yo-chieuDaiCanh-chieuDaiTamGiac, chieuDaiCanh+chieuDaiTamGiac+chieuCaoThan,0);	
 			veHCN(255,100,570,0);
+			veHCN(xmt*5 - 2*r*5-50, ymt-2*r*5+4, 100, 10);
 			return 1;		
 		}
 		if(Mx > 50 && Mx < 200 && My > 80 && My <120){
@@ -1650,7 +1651,7 @@ int coiXoayGio(){
 		}
 		veMatTroi(xmt, ymt, rmt, color);
 		delay(100);
-		veHCN(xmay*5-150, ymay*5-100, 160, 0);
+		veHCN(xmay*5-145, ymay*5-100, 160, 0);
 		
 			float tileTo = 1.1;
 				float tileNho = 0.9;
