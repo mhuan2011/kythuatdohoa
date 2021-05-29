@@ -867,26 +867,23 @@ void elipMidpoint(int xc,int yc, int a, int b, int color)
     while(fx<fy)
     {
 		draw ++;
-		x++;
-        fx += 2*b2;
+		x+=5;
+        fx += 5*(2*b2);
         delay(5);
         if(p<0)
         {
-            p += b2*(2*x + 3);//p=p + b2*(2x +3)
+            p += b2*(2*x + 15);//p=p + b2*(2x +3)
         }
         else
         {
-            y--;
-            p += b2*(2*x +3) + a2*(2- 2*y);//p=p +b2(2x +3) +a2(2-2y)
-            fy -= 2*a2;
+            y-=5;
+            p += b2*(2*x + 15) + a2*(10 - 2*y);//p=p +b2(2x +3) +a2(2-2y)
+            fy -= 5*(2*a2);
         }
-		if (draw == 5){
+		if (draw == 1){
 			draw = 0;
-		if(dem == 3){
+		if(dem == 1){
 			dem = 0;
-		}
-		else if((dem == 2)){
-			dem++;
 		}
 		else{
 		putpixel1(xc+x, yc-y, color);
@@ -896,31 +893,28 @@ void elipMidpoint(int xc,int yc, int a, int b, int color)
 		putpixel1(xc+x, yc+y, color);
     	putpixel1(xc-x, yc+y, color);}		
     }
-    p = Round(b2*(x +0.5)*(x +0.5) + a2*(y-1)*(y-1) - a2*b2);
+    p = Round(b2*(x + 2.5)*(x + 2.5) + a2*(y-5)*(y-5) - a2*b2);
     //
     while(y>0)
     {
     	draw ++;
-        y--;
-        fy -= 2*a2;
+        y-=5;
+        fy -= 5*(2*a2);
         delay(5);
         if(p >=0)
         {
-            p += a2*(3-2*y); //p=p +a2(3-2y)
+            p += a2*(15-2*y); //p=p + a2(3-2y)
         }
         else
         {
-            x++;
-            fx += 2*b2;
-            p += b2*(2*x +2) +a2*(3- 2*y);//p=p+ b2(2x +2) + a2(3-2y)
+            x+=5;
+            fx += 5*(2*b2);
+            p += b2*(2*x + 10) +a2*(15 - 2*y);//p=p+ b2(2x +2) + a2(3-2y)
         }
-        if (draw == 5){
+        if (draw == 1){
 			draw = 0;
-		if(dem == 3){
+		if(dem == 1){
 			dem = 0;
-		}
-		else if((dem == 2)){
-			dem++;
 		}
 		else{
 		putpixel1(xc+x, yc-y, color);
@@ -1035,14 +1029,14 @@ void drawCircleMidpoint(int xc, int yc, int r, int color)
     	
     	draw ++;
         delay(5);
-		if (f < 0) f += (x << 1) + 3;
+		if (f < 0) f += (x << 5) + 15; //(f < 0) f += (x << 1) + 3;
         else
         {
-            y--;
-            f += ((x - y) << 1) + 5;
+            y-=5;
+            f += ((x - y) << 5) + 25; //f += ((x - y) << 1) + 5;
         }
-        x++;
-	    if (draw == 5){
+        x+=5;
+	    if (draw == 1){
 			draw = 0;
 		putpixel1(x + xc, y + yc, color);
 	    putpixel1(-x + xc, y + yc, color);
