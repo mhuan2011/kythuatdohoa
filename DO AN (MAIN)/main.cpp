@@ -1458,8 +1458,8 @@ void xoayTamGiac(int &xa, int &ya, int &xb, int &yb, int &xc, int &yc, int xo, i
 // than coi xoay gio
 void veThanCoiXoayGio(int xo, int yo, int banKinh,int chieuCao, int color){
 		lineDDA(xo+banKinh, yo, xo+banKinh*3, yo+chieuCao, color);
-			lineDDA(xo-banKinh, yo, xo-banKinh*3, yo+chieuCao, color);
-			lineDDA(xo-banKinh*5, yo+chieuCao, xo+banKinh*5, yo+chieuCao, color);
+		lineDDA(xo-banKinh, yo, xo-banKinh*3, yo+chieuCao, color);
+		lineDDA(xo-banKinh*5, yo+chieuCao, xo+banKinh*5, yo+chieuCao, color);
 	
 	}
 // thuc hien phep quay nguyen canh quat
@@ -1511,7 +1511,7 @@ void veHCN(int x, int y, int cao,int color){
 	setcolor(color);
 	int y2 = y+cao;
 	for(int i=y-1; i<=y2; i++){
-		string s = "                                   ";
+		string s = "                              ";
 		outtextxy(x-1,i,stringToChar(s));
 	}
 	normal();
@@ -1538,9 +1538,43 @@ void doiXungDiem(int &x1, int &y1, int xo, int yo){
 	x1 = x1 + xo;
 	y1 = y1 + yo;
 }
-void doiXungDuongThang(int &x1, int &y1, int &x2, int &y2, int xo, int yo){
+void doiXungDuongThang(int &x1, int &y1, int &x2, int &y2, int xo, int yo, int color){
 	doiXungDiem(x1, y1, xo, yo);
 	doiXungDiem(x2, y2, xo, yo);
+	lineDDA(x1,y1, x2, y2, color);
+}
+void doiXungTamGiac(int &xa, int &ya, int &xb, int &yb, int &xc, int &yc, int xDiem, int yDiem, int color){
+	doiXungDiem(xa, ya, xDiem, yDiem);
+	doiXungDiem(xb, yb, xDiem, yDiem);
+	doiXungDiem(xc, yc, xDiem, yDiem);
+	veTamGiacCan(xa, ya, xb, yb, xc, yc, color);
+}
+void doiXungCoiXoayGio(int xDiem, int yDiem, int xo,int yo, int r, int xadt1, int yadt1, int xbdt1, int ybdt1, int xadt2, int yadt2, int xbdt2, int ybdt2,
+ int xa1, int ya1, int xb1, int yb1, int xc1, int yc1
+, int xa2, int ya2, int xb2, int yb2, int xc2, int yc2, int xtraitren, int ytraitren, int xtraiduoi, int ytraiduoi,
+int xphaitren, int yphaitren, int xphaiduoi, int yphaiduoi, int color){
+	xoaKhungChiTiet();
+	// doi xung tam duong tron
+	doiXungDiem(xo, yo, xDiem, yDiem);
+	// doi xung 2 duong thang
+	doiXungDuongThang(xadt1, yadt1, xbdt1, ybdt1, xDiem, yDiem, color);
+	doiXungDuongThang(xadt2, yadt2, xbdt2, ybdt2, xDiem, yDiem,  color);
+	// doi xung 2 canh quat
+	// doi xung 2 canh quat ben phai va canh quat o tren
+	doiXungTamGiac(xa1, ya1, xb1, yb1, xc1, yc1, xDiem, yDiem, color);
+	doiXungTamGiac(xa2, ya2, xb2, yb2, xc2, yc2, xDiem, yDiem, color);
+	// voi moi canh quat da doi xung ta tim canh quat doi xung con lai qua tam duong tron
+	doiXungTamGiac(xa1, ya1, xb1, yb1, xc1, yc1, xo, yo, color);
+	doiXungTamGiac(xa2, ya2, xb2, yb2, xc2, yc2, xo, yo, color);
+	// doi xung than
+	doiXungDuongThang(xtraitren, ytraitren, xtraiduoi, ytraiduoi, xDiem, yDiem, color);
+	doiXungDuongThang(xphaitren, yphaitren, xphaiduoi, yphaiduoi, xDiem, yDiem, color);
+	// ve duong tron
+	h_drawcircle(xo, yo, r, color);
+	// ve tam giac
+	// ve than
+	lineDDA(xtraiduoi, ytraiduoi, xphaiduoi, yphaiduoi, color);
+	
 }
 void veMatTroi(int xo, int yo, int r, int color){
 	h_drawcircle(xo, yo, r, 4);
@@ -1555,7 +1589,7 @@ void veMatTroi(int xo, int yo, int r, int color){
 	
 	for(int i=1; i<=soTia/2; i++){
 		lineDDA(x1, y1, x2, y2, 5);
-		doiXungDuongThang(x1,y1, x2, y2, xo, yo);
+		doiXungDuongThang(x1,y1, x2, y2, xo, yo, color);
 		lineDDA(x1, y1, x2, y2, 5);
 		
 		if(i==1) goc = 360/soTia;
@@ -1573,7 +1607,7 @@ int coiXoayGio(){
 	// xo, yo la tam cua canh quat
 	int color = 15;
 	int goc = 10;
-	int xo=100, yo=75;
+	int xo=80, yo=75;
 	int chieuDaiCanh = 6;
 	int chieuCaoThan = 30;
 	//duong thang ngang
@@ -1618,8 +1652,21 @@ int coiXoayGio(){
 	int yab = ycb-chieuDaiTamGiac;
 	int xbb = xcb + chieuDaiDay/2;
 	int ybb =  ycb-chieuDaiTamGiac;
+	// than coi xoay gio
+	int xtraitren = xo-banKinh;
+	int ytraitren = yo;
+	int xtraiduoi = xo - banKinh*3;
+	int ytraiduoi = yo+chieuCaoThan;
+	int xphaitren = xo+banKinh;
+	int yphaitren = yo;
+	int xphaiduoi = xo + banKinh*3;
+	int yphaiduoi = yo+chieuCaoThan;
 //-----------------
 
+	int xDiem = 575/5;
+	int yDiem = 300/5;
+	doiXungCoiXoayGio(xDiem, yDiem, xo, yo, banKinh, xa1, ya1, xb1, yb1, xa2, ya2, xb2, yb2, xar, yar, xbr, ybr, xcr, ycr, 
+	xat, yat, xbt, ybt, xct, yct, xtraitren, ytraitren, xtraiduoi, ytraiduoi, xphaitren, yphaitren, xphaiduoi, yphaiduoi, color);
 	int xmay = 80, ymay = 35;
 	int r = 8, a =13, b=5;
 	// mat troi trong tim em
@@ -1652,8 +1699,8 @@ int coiXoayGio(){
 		if(kbhit()){
 			break;
 		}
-		veMatTroi(xmt, ymt, rmt, color);
-		delay(100);
+//		veMatTroi(xmt, ymt, rmt, color);
+//		delay(100);
 		veHCN(xmay*5-145, ymay*5-100, 160, 0);
 		
 			float tileTo = 1.1;
