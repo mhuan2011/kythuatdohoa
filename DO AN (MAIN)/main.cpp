@@ -838,18 +838,18 @@ void elipMidpoint(int xc,int yc, int a, int b, int color)
     while(fx<fy)
     {
 		draw ++;
-		x+=5;
-        fx += 5*(2*b2);
+		x+=pixel;
+        fx += pixel*(2*b2);
         delay(5);
         if(p<0)
         {
-            p += b2*(2*x + 15);//p=p + b2*(2x +3)
+            p += b2*(2*x + pixel*3);//p=p + b2*(2x +3)
         }
         else
         {
-            y-=5;
-            p += b2*(2*x + 15) + a2*(10 - 2*y);//p=p +b2(2x +3) +a2(2-2y)
-            fy -= 5*(2*a2);
+            y-=pixel;
+            p += b2*(2*x + pixel*3) + a2*(pixel*2 - 2*y);//p=p +b2(2x +3) +a2(2-2y)
+            fy -= pixel*(2*a2);
         }
 		if (draw == 1){
 			draw = 0;
@@ -864,23 +864,23 @@ void elipMidpoint(int xc,int yc, int a, int b, int color)
 		putpixel1(xc+x, yc+y, color);
     	putpixel1(xc-x, yc+y, color);}		
     }
-    p = Round(b2*(x + 2.5)*(x + 2.5) + a2*(y-5)*(y-5) - a2*b2);
+    p = Round(b2*(x + pixel*0.5)*(x + pixel*0.5) + a2*(y-pixel)*(y-pixel) - a2*b2);
     //
     while(y>0)
     {
     	draw ++;
-        y-=5;
-        fy -= 5*(2*a2);
+        y-=pixel;
+        fy -= pixel*(2*a2);
         delay(5);
         if(p >=0)
         {
-            p += a2*(15-2*y); //p=p + a2(3-2y)
+            p += a2*(pixel*3-2*y); //p=p + a2(3-2y)
         }
         else
         {
-            x+=5;
-            fx += 5*(2*b2);
-            p += b2*(2*x + 10) +a2*(15 - 2*y);//p=p+ b2(2x +2) + a2(3-2y)
+            x+=pixel;
+            fx += pixel*(2*b2);
+            p += b2*(2*x + pixel*2) +a2*(pixel*3 - 2*y);//p=p+ b2(2x +2) + a2(3-2y)
         }
         if (draw == 1){
 			draw = 0;
@@ -1000,13 +1000,13 @@ void drawCircleMidpoint(int xc, int yc, int r, int color)
     	
     	draw ++;
         delay(5);
-		if (f < 0) f += (x << 5) + 15; //(f < 0) f += (x << 1) + 3;
+		if (f < 0) f += (x << pixel) + pixel*3; //(f < 0) f += (x << 1) + 3;
         else
         {
-            y-=5;
-            f += ((x - y) << 5) + 25; //f += ((x - y) << 1) + 5;
+            y-=pixel;
+            f += ((x - y) << pixel) + pixel*5; //f += ((x - y) << 1) + 5;
         }
-        x+=5;
+        x+=pixel;
 	    if (draw == 1){
 			draw = 0;
 		putpixel1(x + xc, y + yc, color);
@@ -1083,7 +1083,7 @@ int l_nhapDuLieu(){
 						outtextxy(x, y, a);
 						x+=15;
 						if(check > 3){
-							drawSphere((kichThuoc[0] - kichThuoc[2]*(sqrt(2)/4))*5 + 450, 400 - (kichThuoc[1] - kichThuoc[2]*(sqrt(2)/4))*5 , kichThuoc[3] * 5, 2);
+							drawSphere((kichThuoc[0] - kichThuoc[2]*(sqrt(2)/4))*pixel + 450, 400 - (kichThuoc[1] - kichThuoc[2]*(sqrt(2)/4))*pixel , kichThuoc[3] * pixel, 2);
 							l_xuatDiem(kichThuoc[0], kichThuoc[1], kichThuoc[2]);
 							//v_hinhChopVuong(kichThuoc[0]*5 + 450, kichThuoc[1]*5 + 400, kichThuoc[2], kichThuoc[3], kichThuoc[4]);
 							return 2;
