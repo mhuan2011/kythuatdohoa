@@ -9,7 +9,7 @@ using namespace std;
 #define max(a,b) (a>b)?a:b
 #define bgColor 0
 int color = 1;
-int pixel = 1;//chi nhan so pixel le
+int pixel = 5;//chi nhan so pixel le
 //void v_nhapDuLieu();
 // Huan------------------------------------------------------------------------------------------
 void inToaDo(int xb, int yb, int color);
@@ -1467,22 +1467,22 @@ void inToaDo(int xb, int yb, int color){
 }
 void xoayToaDo(int xb, int yb, int xo, int yo, int goc, int color){
 	
-	string s = "(" + to_string(xb-575/5) + "," + to_string(-(yb-300/5)) + ")";
+	string s = "(" + to_string(xb-575/pixel) + "," + to_string(-(yb-300/pixel)) + ")";
 	char * text = stringToChar(s);
 	setbkcolor(0);
 	setcolor(0);
-	outtextxy(xb*5, yb*5, text);
+	outtextxy(xb*pixel, yb*pixel, text);
 	rotate_point(xb, yb, xo, yo, goc);
-	s = "(" + to_string(xb-575/5) + "," +  to_string(-(yb-300/5)) + ")";
+	s = "(" + to_string(xb-575/pixel) + "," +  to_string(-(yb-300/pixel)) + ")";
 	text = stringToChar(s);
 	normal();
-	outtextxy(xb*5, yb*5, text);
+	outtextxy(xb*pixel, yb*pixel, text);
 	delete [] text;
 }
 void h_inToaDo(int x, int y, string s, int color){
 	setbkcolor(bgColor);
 	setcolor(color);
-	outtextxy(x*5, y*5, stringToChar(s));
+	outtextxy(x*pixel, y*pixel, stringToChar(s));
 }
 void veHCN(int x, int y, int cao,int color){
 	setbkcolor(0);
@@ -1496,12 +1496,12 @@ void veHCN(int x, int y, int cao,int color){
 }
 void veMay(int x1, int y1, int r, int a, int b, int color){
 	drawNuacircleTren(x1, y1-b, r, color);
-	string toaDoCircle = "(" + to_string(x1-575/5) + "," + to_string(-(y1-b-r-300/5)) + ")";
+	string toaDoCircle = "(" + to_string(x1-575/pixel) + "," + to_string(-(y1-b-r-300/pixel)) + ")";
 	h_inToaDo(x1, y1-b-r-3,toaDoCircle, color);
 	drawNuacircleDuoi(x1, y1+b, r, color);
 	elipNuaTrai(x1-r, y1,a,b, color);
 	elipNuaPhai(x1+r, y1,a,b, color);
-	string toDoElip = "(" + to_string(x1+r+b-575/5) + "," + to_string(-(y1-300/5)) + ")";
+	string toDoElip = "(" + to_string(x1+r+b-575/pixel) + "," + to_string(-(y1-300/pixel)) + ")";
 	h_inToaDo(x1+r+b+5, y1,toDoElip, color);
 }
 
@@ -1556,7 +1556,7 @@ int xphaitren, int yphaitren, int xphaiduoi, int yphaiduoi, int color){
 }
 void veMatTroi(int xo, int yo, int r, int color){
 	h_drawcircle(xo, yo, r, 4);
-	string toDoElip = "(" + to_string(xo-575/5) + "," + to_string(-(yo-300/5)) + ")";
+	string toDoElip = "(" + to_string(xo-575/pixel) + "," + to_string(-(yo-300/pixel)) + ")";
 	h_inToaDo(xo, yo,toDoElip, color);
 	int x1 = xo + r + 2;
 	int y1 = yo;
@@ -1641,8 +1641,8 @@ int coiXoayGio(){
 	int yphaiduoi = yo+chieuCaoThan;
 //-----------------
 
-	int xDiem = 575/5;
-	int yDiem = 300/5;
+	int xDiem = 575/pixel;
+	int yDiem = 300/pixel;
 	doiXungCoiXoayGio(xDiem, yDiem, xo, yo, banKinh, xa1, ya1, xb1, yb1, xa2, ya2, xb2, yb2, xar, yar, xbr, ybr, xcr, ycr, 
 	xat, yat, xbt, ybt, xct, yct, xtraitren, ytraitren, xtraiduoi, ytraiduoi, xphaitren, yphaitren, xphaiduoi, yphaiduoi, color);
 	int xmay = 80, ymay = 35;
@@ -1689,9 +1689,9 @@ int coiXoayGio(){
 		}else{
 			veMay(xmay, ymay, r*tileNho, a*tileNho, b*tileNho, 11);
 		}
-			n_line(575/5,0/5,575/5,590/5);//oy  575
+			n_line(575/pixel,0/pixel,575/pixel,590/pixel);//oy  575
 		setcolor(15);
-		n_line(250/5,300/5,900/5,300/5);//ox 300
+		n_line(250/pixel,300/pixel,900/pixel,300/pixel);//ox 300
 		h_drawcircle(xo, yo, banKinh, color);
 		xoayDuongThang(xa1, ya1, xb1, yb1, xo, yo, goc, color);
 		xoayDuongThang(xa2, ya2, xb2, yb2, xo, yo, goc, color);
