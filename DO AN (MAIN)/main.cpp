@@ -554,6 +554,9 @@ void v_lineDDAOz(int x1, int y1, int x2, int y2, int color){
         k++;
         x += x_inc;
         y += y_inc;
+        if (pixel == 1){
+        	pixel += 1;
+		}
         if(dem % Round(pixel/2) == 0){
         	putpixel(Round(x),Round(y),color);	
 		}
