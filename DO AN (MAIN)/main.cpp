@@ -672,7 +672,7 @@ void v_veTrucOxyz(){
 
 //1.5. Ve hinh hop chu nhat
 void v_hinhHopCN(int x, int y, int CD, int CR, int CC){
-	int dai = Round(CD*(5/2)), rong = CR*5, cao = CC*5;
+	int dai = Round(CD*(pixel/2)), rong = CR*pixel, cao = CC*pixel;
 	
 	//HCM mat sau
 	v_lineDDA3(x, y, x, y - cao, 2);
@@ -1085,7 +1085,6 @@ int l_nhapDuLieu(){
 						if(check > 3){
 							drawSphere((kichThuoc[0] - kichThuoc[2]*(sqrt(2)/4))*pixel + 450, 400 - (kichThuoc[1] - kichThuoc[2]*(sqrt(2)/4))*pixel , kichThuoc[3] * pixel, 2);
 							l_xuatDiem(kichThuoc[0], kichThuoc[1], kichThuoc[2]);
-							//v_hinhChopVuong(kichThuoc[0]*5 + 450, kichThuoc[1]*5 + 400, kichThuoc[2], kichThuoc[3], kichThuoc[4]);
 							return 2;
 							
 						}
