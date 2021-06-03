@@ -9,7 +9,7 @@ using namespace std;
 #define max(a,b) (a>b)?a:b
 #define bgColor 0
 int color = 1;
-int pixel = 5;//chi nhan so pixel le
+int pixel = 3;//chi nhan so pixel le
 //void v_nhapDuLieu();
 // Huan------------------------------------------------------------------------------------------
 void inToaDo(int xb, int yb, int color);
@@ -1592,7 +1592,7 @@ int coiXoayGio(){
 	
 	// xo, yo la tam cua canh quat
 	int color = 15;
-	int goc = 50/pixel;
+	int goc = 2*pixel;
 	int xo=400/pixel, yo=375/pixel;
 	int chieuDaiCanh = 30/pixel;
 	int chieuCaoThan = 150/pixel;
