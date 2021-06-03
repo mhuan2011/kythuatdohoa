@@ -1588,14 +1588,14 @@ void veMatTroi(int xo, int yo, int r, int color){
 
 int coiXoayGio(){
 	xoaKhungChiTiet();
-		int banKinh = 4;
+		int banKinh = 20/pixel;
 	
 	// xo, yo la tam cua canh quat
 	int color = 15;
-	int goc = 10;
-	int xo=80, yo=75;
-	int chieuDaiCanh = 6;
-	int chieuCaoThan = 30;
+	int goc = 50/pixel;
+	int xo=400/pixel, yo=375/pixel;
+	int chieuDaiCanh = 30/pixel;
+	int chieuCaoThan = 150/pixel;
 	//duong thang ngang
 	int xa1 = xo;
 	int ya1 = yo-chieuDaiCanh;
@@ -1653,11 +1653,11 @@ int coiXoayGio(){
 	int yDiem = 300/pixel;
 	doiXungCoiXoayGio(xDiem, yDiem, xo, yo, banKinh, xa1, ya1, xb1, yb1, xa2, ya2, xb2, yb2, xar, yar, xbr, ybr, xcr, ycr, 
 	xat, yat, xbt, ybt, xct, yct, xtraitren, ytraitren, xtraiduoi, ytraiduoi, xphaitren, yphaitren, xphaiduoi, yphaiduoi, color);
-	int xmay = 80, ymay = 35;
-	int r = 8, a =13, b=5;
+	int xmay = 400/pixel, ymay = 175/pixel;
+	int r = 40/pixel, a =65/pixel, b=25/pixel;
 	// mat troi trong tim em
-	int xmt = 150, ymt = 20;
-	int rmt = 8;
+	int xmt = 750/pixel, ymt = 100/pixel;
+	int rmt = 40/pixel;
 	int count =0;
 	
 	while(true){
@@ -1672,9 +1672,9 @@ int coiXoayGio(){
 		}
 		if(Mx>265 && Mx<365 && My>7 && My<34){
 			chonNguCanh(1);
-			//veHCN(xo-chieuDaiCanh-chieuDaiTamGiac, yo-chieuDaiCanh-chieuDaiTamGiac, chieuDaiCanh+chieuDaiTamGiac+chieuCaoThan,0);	
-			veHCN(255,100,570,0);
-			veHCN(xmt*5 - 2*r*5-50, ymt-2*r*5+4, 100, 10);
+//			veHCN(xo-chieuDaiCanh-chieuDaiTamGiac, yo-chieuDaiCanh-chieuDaiTamGiac, chieuDaiCanh+chieuDaiTamGiac+chieuCaoThan,0);	
+//			
+			veHCN(xmt*pixel - 2*r*pixel-100, ymt-2*r*pixel+4, 100, 0);
 			return 1;		
 		}
 		if(Mx > 50 && Mx < 200 && My > 80 && My <120){
@@ -1687,7 +1687,7 @@ int coiXoayGio(){
 		}
 //		veMatTroi(xmt, ymt, rmt, color);
 //		delay(100);
-		veHCN(xmay*5-145, ymay*5-100, 160, 0);
+		veHCN(xmay*pixel-145, ymay*pixel-100, 160, 0);
 		
 			float tileTo = 1.1;
 				float tileNho = 0.9;
