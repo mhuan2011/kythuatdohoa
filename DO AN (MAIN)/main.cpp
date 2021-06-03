@@ -474,20 +474,26 @@ void v_lineDDAforOxyz(int x1, int y1, int x2, int y2, int color){ //duong thang 
 //ve diem pixe = 5
 void putpixel1(int x, int y, int color){
 	int ve = 0;
-	if (pixel%2 != 0){
-		ve = Round(pixel/2);
+	if (pixel == 1){
+		putpixel(x, y, color);
 	}
-	else if (pixel%2 == 0){
-		ve = pixel/2;
+	else {
+		if (pixel%2 != 0){
+			ve = Round(pixel/2);
+		}
+		else if (pixel%2 == 0){
+			ve = pixel/2;
+		}
+		v_lineDDAforOxyz(x-ve, y-ve, x+ve, y-ve, color);
+		v_lineDDAforOxyz(x-ve, y-ve, x-ve, y+ve, color);
+		v_lineDDAforOxyz(x-ve, y+ve, x+ve, y+ve, color);
+		v_lineDDAforOxyz(x+ve, y-ve, x+ve, y+ve, color);
+		for(int i = 0; i<pixel; i++){
+			v_lineDDAforOxyz(x-ve, y-ve+i, x+ve, y-ve+i, color);
+			v_lineDDAforOxyz(x-ve+i, y+ve, x+ve, y+ve, color);
+		}
 	}
-	v_lineDDAforOxyz(x-ve, y-ve, x+ve, y-ve, color);
-	v_lineDDAforOxyz(x-ve, y-ve, x-ve, y+ve, color);
-	v_lineDDAforOxyz(x-ve, y+ve, x+ve, y+ve, color);
-	v_lineDDAforOxyz(x+ve, y-ve, x+ve, y+ve, color);
-	for(int i = 0; i<pixel; i++){
-		v_lineDDAforOxyz(x-ve, y-ve+i, x+ve, y-ve+i, color);
-		v_lineDDAforOxyz(x-ve+i, y+ve, x+ve, y+ve, color);
-	}
+	
 
 }
 
